@@ -763,12 +763,11 @@ function App() {
           <div className="request-grid">
             <motion.form
               className="request-form"
-              action="https://api.web3forms.com/submit"
+              action="https://usebasin.com/f/b0ea3893312a"
               method="POST"
               variants={itemVariants}
             >
-              <input type="hidden" name="access_key" value="96557d32-0156-4c35-840a-4451029b1178" />
-              <input type="hidden" name="from_name" value="Project Studio" />
+    
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
@@ -818,7 +817,7 @@ function App() {
                 value={activePackage.support}
               />
               <input type="hidden" name="ideaMode" value={form.ideaMode} />
-              {form.contact.includes('@') ? (
+              {form.contact.includes("@") ? (
                 <input
                   type="hidden"
                   name="replyto"
@@ -826,7 +825,13 @@ function App() {
                 />
               ) : null}
               <input type="hidden" name="redirect" value={thankYouUrl} />
-              <input type="checkbox" name="botcheck" className="none" tabIndex={-1} aria-hidden="true" />
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="none"
+                tabIndex={-1}
+                aria-hidden="true"
+              />
 
               <div className="form-grid">
                 <label className="field">
