@@ -160,13 +160,19 @@ function resolveInitialTheme() {
     return 'dark';
   }
 
-  const stored = window.localStorage.getItem('project-studio-theme');
+  try {
+    const stored = window.localStorage.getItem('project-studio-theme');
 
-  if (stored === 'light' || stored === 'dark') {
-    return stored;
+    if (stored === 'light' || stored === 'dark') {
+      return stored;
+    }
+  } catch (error) {
+    // Some browsers block localStorage in private or hardened modes.
   }
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light';
 }
 
 function scrollToSection(id) {
@@ -338,7 +344,12 @@ function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-    window.localStorage.setItem('project-studio-theme', theme);
+
+    try {
+      window.localStorage.setItem('project-studio-theme', theme);
+    } catch (error) {
+      // Ignore storage failures and keep the app usable.
+    }
   }, [theme]);
 
   useEffect(() => {
