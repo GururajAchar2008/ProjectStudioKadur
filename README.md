@@ -16,19 +16,13 @@ A React + Vite website for diploma and engineering CSE students to browse sample
 npm install
 ```
 
-2. Create your environment file:
+2. Optional: copy the example env file only if you plan to switch back to env-driven submission later:
 
 ```bash
 cp .env.example .env
 ```
 
-3. Add your form endpoint in `.env`:
-
-```bash
-VITE_LEAD_ENDPOINT=https://formspree.io/f/your_form_id
-```
-
-4. Start the local dev server:
+3. Start the local dev server:
 
 ```bash
 npm run dev
@@ -61,8 +55,8 @@ The project is set up to work with GitHub Pages without changing the Vite base p
 
 ## Form Submission
 
-- The form posts directly to `VITE_LEAD_ENDPOINT`.
-- If you only have the Formspree form ID, set `VITE_FORMSPREE_FORM_ID` and the app will build the endpoint automatically.
+- The form posts directly to the hardcoded Formspree action in `src/App.jsx`.
+- You do not need an `.env` file for the current form setup.
 - This version is frontend-only, so no custom backend is needed.
 
 ## If The Page Looks Blank

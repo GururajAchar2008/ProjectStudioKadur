@@ -115,8 +115,7 @@ const ideaSuggestions = [
   'Exam prep hub',
 ];
 
-const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID?.trim() || '';
-const leadEndpoint = import.meta.env.VITE_LEAD_ENDPOINT?.trim() || (formspreeFormId ? `https://formspree.io/f/${formspreeFormId}` : '');
+const projectLogo = `${import.meta.env.BASE_URL}favicon.svg`;
 
 const formDefaults = () => ({
   fullName: '',
@@ -332,10 +331,10 @@ function App() {
   const [theme, setTheme] = useState(resolveInitialTheme);
   const [selectedPackageId, setSelectedPackageId] = useState('starter');
   const [form, setForm] = useState(formDefaults);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [status, setStatus] = useState({
     kind: 'idle',
     message: '',
-    referenceId: '',
   });
 
   const activePackage = packages.find((item) => item.id === selectedPackageId) ?? packages[1];
@@ -356,11 +355,37 @@ function App() {
     document.title = 'Project Studio | CSE Final-Year Builds';
   }, []);
 
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      return undefined;
+    }
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : previousOverflow;
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
   const clearStatus = () => {
     setStatus({
       kind: 'idle',
       message: '',
-      referenceId: '',
     });
   };
 
@@ -377,75 +402,9 @@ function App() {
     clearStatus();
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    if (!leadEndpoint) {
-      setStatus({
-        kind: 'error',
-        message: 'Add VITE_LEAD_ENDPOINT or VITE_FORMSPREE_FORM_ID in .env to connect the form.',
-        referenceId: '',
-      });
-      return;
-    }
-
-    const referenceId = `PS-${Date.now().toString(36).slice(-6).toUpperCase()}`;
-    const payload = new FormData();
-    payload.append('_subject', `Project Studio request - ${activePackage.name}`);
-    payload.append('referenceId', referenceId);
-    payload.append('fullName', form.fullName);
-    payload.append('collegeName', form.collegeName);
-    payload.append('contact', form.contact);
-    payload.append('submissionDate', form.submissionDate);
-    payload.append('selectedPackageId', selectedPackageId);
-    payload.append('selectedPackageName', activePackage.name);
-    payload.append('selectedPackageSummary', activePackage.summary);
-    payload.append('ideaMode', form.ideaMode);
-    payload.append('projectIdea', form.projectIdea);
-    payload.append('notes', form.notes);
-
-    if (form.contact.includes('@')) {
-      payload.append('_replyto', form.contact.trim());
-    }
-
-    setStatus({
-      kind: 'sending',
-      message: 'Sending your request through the connected form platform...',
-      referenceId: '',
-    });
-
-    try {
-      const response = await fetch(leadEndpoint, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-        },
-        body: payload,
-      });
-
-      const data = await response.json().catch(() => null);
-
-      if (!response.ok) {
-        throw new Error(
-          data?.errors?.[0]?.message ||
-            data?.message ||
-            'Unable to submit the request. Check the configured endpoint.',
-        );
-      }
-
-      setStatus({
-        kind: 'success',
-        message: 'Your request was sent successfully through the form platform.',
-        referenceId,
-      });
-      setForm(formDefaults());
-    } catch (error) {
-      setStatus({
-        kind: 'error',
-        message: error.message || 'Something went wrong.',
-        referenceId: '',
-      });
-    }
+  const navigateToSection = (id) => {
+    setIsMobileMenuOpen(false);
+    window.requestAnimationFrame(() => scrollToSection(id));
   };
 
   return (
@@ -455,8 +414,12 @@ function App() {
       <div className="ambient ambient-c" />
 
       <header className="topbar">
-        <button className="brand" type="button" onClick={() => scrollToSection('home')}>
-          <span className="brand-mark">PS</span>
+        <button
+          className="brand"
+          type="button"
+          onClick={() => navigateToSection("home")}
+        >
+          <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
           <span className="brand-copy">
             <strong>Project Studio</strong>
             <small>CSE final-year builds</small>
@@ -465,14 +428,114 @@ function App() {
 
         <nav className="nav-links" aria-label="Primary">
           {navItems.map((item) => (
-            <button key={item.id} type="button" className="nav-link" onClick={() => scrollToSection(item.id)}>
+            <button
+              key={item.id}
+              type="button"
+              className="nav-link"
+              onClick={() => navigateToSection(item.id)}
+            >
               {item.label}
             </button>
           ))}
         </nav>
 
-        <ThemeToggle theme={theme} onToggle={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))} />
+        <ThemeToggle
+          theme={theme}
+          onToggle={() =>
+            setTheme((current) => (current === "dark" ? "light" : "dark"))
+          }
+        />
+        <button
+          type="button"
+          className={`menu-toggle ${isMobileMenuOpen ? "menu-toggle--open" : ""}`}
+          aria-label={
+            isMobileMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
+          aria-expanded={isMobileMenuOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setIsMobileMenuOpen((current) => !current)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </header>
+
+      <AnimatePresence>
+        {isMobileMenuOpen ? (
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <button
+              type="button"
+              className="mobile-menu__backdrop"
+              aria-label="Close navigation menu"
+              onClick={() => setIsMobileMenuOpen(false)}
+            />
+
+            <motion.aside
+              id="mobile-menu"
+              className="mobile-menu__panel"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 360, damping: 36 }}
+            >
+              <div className="mobile-menu__header">
+                <div>
+                  <span>Navigation</span>
+                  <strong>Project Studio</strong>
+                </div>
+                <button
+                  type="button"
+                  className="mobile-menu__close"
+                  aria-label="Close menu"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  ×
+                </button>
+              </div>
+
+              <nav className="mobile-menu__nav" aria-label="Mobile primary">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className="mobile-menu__link"
+                    onClick={() => navigateToSection(item.id)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="mobile-menu__section">
+                <span className="mobile-menu__eyebrow">Theme</span>
+                <ThemeToggle
+                  theme={theme}
+                  onToggle={() =>
+                    setTheme((current) =>
+                      current === "dark" ? "light" : "dark",
+                    )
+                  }
+                />
+              </div>
+
+              <div className="mobile-menu__section mobile-menu__section--note">
+                <span className="mobile-menu__eyebrow">Quick note</span>
+                <p>
+                  Use the drawer to jump between sections and switch the look
+                  without leaving the menu.
+                </p>
+              </div>
+            </motion.aside>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
 
       <main className="main-shell">
         <motion.section
@@ -484,17 +547,31 @@ function App() {
           variants={sectionVariants}
         >
           <div className="hero-copy">
-            <span className="eyebrow eyebrow--hero">Diploma / Engineering CSE only</span>
-            <h1>Premium CSE project builds that feel trustworthy on the first glance.</h1>
+            <span className="eyebrow eyebrow--hero">
+              Diploma / Engineering CSE only
+            </span>
+            <h1>
+              Premium CSE project builds that feel trustworthy on the first
+              glance.
+            </h1>
             <p className="hero-text">
-              Students can browse previous-style showcases, compare prices up front, pick a package, and submit a
-              clean request where the selected package is carried automatically into the form.
+              Students can browse previous-style showcases, compare prices up
+              front, pick a package, and submit a clean request where the
+              selected package is carried automatically into the form.
             </p>
             <div className="hero-actions">
-              <button type="button" className="button button-primary" onClick={() => scrollToSection('packages')}>
+              <button
+                type="button"
+                className="button button-primary"
+                onClick={() => scrollToSection("packages")}
+              >
                 Explore packages
               </button>
-              <button type="button" className="button button-secondary" onClick={() => scrollToSection('request')}>
+              <button
+                type="button"
+                className="button button-secondary"
+                onClick={() => scrollToSection("request")}
+              >
                 Start request
               </button>
             </div>
@@ -522,8 +599,12 @@ function App() {
           <motion.div className="hero-visual" variants={itemVariants}>
             <div className="hero-visual__card">
               <div className="hero-visual__top">
-                <span className="hero-visual__status">Live package preview</span>
-                <span className="hero-visual__badge">{activePackage.badge}</span>
+                <span className="hero-visual__status">
+                  Live package preview
+                </span>
+                <span className="hero-visual__badge">
+                  {activePackage.badge}
+                </span>
               </div>
               <h2>{activePackage.name}</h2>
               <div className="hero-visual__price">
@@ -570,7 +651,11 @@ function App() {
 
           <motion.div className="trust-grid" variants={listVariants}>
             {trustFeatures.map((feature) => (
-              <motion.article className="trust-card" key={feature.title} variants={itemVariants}>
+              <motion.article
+                className="trust-card"
+                key={feature.title}
+                variants={itemVariants}
+              >
                 <span className="trust-card__mark" />
                 <h3>{feature.title}</h3>
                 <p>{feature.copy}</p>
@@ -626,8 +711,8 @@ function App() {
           </motion.div>
 
           <p className="section-footnote">
-            The package selection stays active as you move into the request form, so students do not have to repeat the
-            same choice twice.
+            The package selection stays active as you move into the request
+            form, so students do not have to repeat the same choice twice.
           </p>
         </motion.section>
 
@@ -647,7 +732,11 @@ function App() {
 
           <motion.div className="process-grid" variants={listVariants}>
             {processSteps.map((step, index) => (
-              <motion.article className="process-card" key={step.title} variants={itemVariants}>
+              <motion.article
+                className="process-card"
+                key={step.title}
+                variants={itemVariants}
+              >
                 <span className="process-card__index">0{index + 1}</span>
                 <h3>{step.title}</h3>
                 <p>{step.copy}</p>
@@ -671,7 +760,12 @@ function App() {
           />
 
           <div className="request-grid">
-            <motion.form className="request-form" onSubmit={handleSubmit} variants={itemVariants}>
+            <motion.form
+              className="request-form"
+              action="https://formspree.io/f/mojpeejl"
+              method="POST"
+              variants={itemVariants}
+            >
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
@@ -685,6 +779,48 @@ function App() {
                 </div>
               </div>
 
+              <input
+                type="hidden"
+                name="_subject"
+                value={`Project Studio request - ${activePackage.name}`}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageId"
+                value={selectedPackageId}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageName"
+                value={activePackage.name}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageSummary"
+                value={activePackage.summary}
+              />
+              <input
+                type="hidden"
+                name="selectedPackagePrice"
+                value={activePackage.price}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageTimeline"
+                value={activePackage.timeline}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageSupport"
+                value={activePackage.support}
+              />
+              <input type="hidden" name="ideaMode" value={form.ideaMode} />
+              <input
+                type="hidden"
+                name="_replyto"
+                value={form.contact.includes("@") ? form.contact.trim() : ""}
+              />
+
               <div className="form-grid">
                 <label className="field">
                   <span>Full name</span>
@@ -692,7 +828,9 @@ function App() {
                     type="text"
                     name="fullName"
                     value={form.fullName}
-                    onChange={(event) => updateField('fullName', event.target.value)}
+                    onChange={(event) =>
+                      updateField("fullName", event.target.value)
+                    }
                     placeholder="Your name"
                     required
                   />
@@ -704,7 +842,9 @@ function App() {
                     type="text"
                     name="collegeName"
                     value={form.collegeName}
-                    onChange={(event) => updateField('collegeName', event.target.value)}
+                    onChange={(event) =>
+                      updateField("collegeName", event.target.value)
+                    }
                     placeholder="College / institute name"
                     required
                   />
@@ -716,7 +856,9 @@ function App() {
                     type="text"
                     name="contact"
                     value={form.contact}
-                    onChange={(event) => updateField('contact', event.target.value)}
+                    onChange={(event) =>
+                      updateField("contact", event.target.value)
+                    }
                     placeholder="Gmail or phone number"
                     required
                   />
@@ -729,7 +871,9 @@ function App() {
                     name="submissionDate"
                     min={today}
                     value={form.submissionDate}
-                    onChange={(event) => updateField('submissionDate', event.target.value)}
+                    onChange={(event) =>
+                      updateField("submissionDate", event.target.value)
+                    }
                     required
                   />
                 </label>
@@ -740,20 +884,26 @@ function App() {
                 <div className="radio-grid">
                   <button
                     type="button"
-                    className={`radio-card ${form.ideaMode === 'guided' ? 'radio-card--active' : ''}`}
-                    onClick={() => updateField('ideaMode', 'guided')}
+                    className={`radio-card ${form.ideaMode === "guided" ? "radio-card--active" : ""}`}
+                    onClick={() => updateField("ideaMode", "guided")}
                   >
                     <strong>Let us choose</strong>
-                    <span>We suggest the project direction and shape the concept with you.</span>
+                    <span>
+                      We suggest the project direction and shape the concept
+                      with you.
+                    </span>
                   </button>
 
                   <button
                     type="button"
-                    className={`radio-card ${form.ideaMode === 'own' ? 'radio-card--active' : ''}`}
-                    onClick={() => updateField('ideaMode', 'own')}
+                    className={`radio-card ${form.ideaMode === "own" ? "radio-card--active" : ""}`}
+                    onClick={() => updateField("ideaMode", "own")}
                   >
                     <strong>I have my own idea</strong>
-                    <span>You already know the concept and want to describe it directly.</span>
+                    <span>
+                      You already know the concept and want to describe it
+                      directly.
+                    </span>
                   </button>
                 </div>
               </fieldset>
@@ -762,9 +912,9 @@ function App() {
                 <div className="idea-panel__header">
                   <span>Project idea or preference</span>
                   <span className="idea-helper">
-                    {form.ideaMode === 'guided'
-                      ? 'Pick a starting point below or type a preferred direction.'
-                      : 'Describe the concept, features, or reference apps you want.'}
+                    {form.ideaMode === "guided"
+                      ? "Pick a starting point below or type a preferred direction."
+                      : "Describe the concept, features, or reference apps you want."}
                   </span>
                 </div>
 
@@ -773,8 +923,8 @@ function App() {
                     <button
                       type="button"
                       key={suggestion}
-                      className={`idea-chip ${form.projectIdea === suggestion ? 'idea-chip--active' : ''}`}
-                      onClick={() => updateField('projectIdea', suggestion)}
+                      className={`idea-chip ${form.projectIdea === suggestion ? "idea-chip--active" : ""}`}
+                      onClick={() => updateField("projectIdea", suggestion)}
                     >
                       {suggestion}
                     </button>
@@ -782,15 +932,21 @@ function App() {
                 </div>
 
                 <label className="field field--stacked">
-                  <span>{form.ideaMode === 'guided' ? 'Preferred direction' : 'Describe your idea'}</span>
+                  <span>
+                    {form.ideaMode === "guided"
+                      ? "Preferred direction"
+                      : "Describe your idea"}
+                  </span>
                   <textarea
                     name="projectIdea"
                     value={form.projectIdea}
-                    onChange={(event) => updateField('projectIdea', event.target.value)}
+                    onChange={(event) =>
+                      updateField("projectIdea", event.target.value)
+                    }
                     placeholder={
-                      form.ideaMode === 'guided'
-                        ? 'Example: something useful for attendance, college admin, placement, or project showcase.'
-                        : 'Tell us what the app should do, what modules you need, and what you want the UI to feel like.'
+                      form.ideaMode === "guided"
+                        ? "Example: something useful for attendance, college admin, placement, or project showcase."
+                        : "Tell us what the app should do, what modules you need, and what you want the UI to feel like."
                     }
                     rows="6"
                   />
@@ -802,7 +958,7 @@ function App() {
                 <textarea
                   name="notes"
                   value={form.notes}
-                  onChange={(event) => updateField('notes', event.target.value)}
+                  onChange={(event) => updateField("notes", event.target.value)}
                   placeholder="Add any deadline pressure, must-have features, tech preferences, or reference links."
                   rows="4"
                 />
@@ -812,39 +968,32 @@ function App() {
                 <button
                   type="submit"
                   className="button button-primary button-submit"
-                  disabled={status.kind === 'sending'}
                 >
-                  {status.kind === 'sending' ? 'Sending...' : 'Submit request'}
+                  Submit request
                 </button>
                 <p className="form-note">
-                  Your request will go directly to the configured form endpoint with the selected package and submitted
-                  details.
+                  Your request will go directly to the configured form endpoint
+                  with the selected package and submitted details.
                 </p>
               </div>
 
               <AnimatePresence>
-                {status.kind !== 'idle' ? (
+                {status.kind === "error" ? (
                   <motion.div
-                    className={`status-banner status-banner--${status.kind}`}
+                    className="status-banner status-banner--error"
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 12 }}
                   >
-                    <strong>
-                      {status.kind === 'sending'
-                        ? 'Sending request'
-                        : status.kind === 'success'
-                          ? 'Request sent'
-                          : 'Submission failed'}
-                    </strong>
+                    <strong>Submission failed</strong>
                     <p>{status.message}</p>
-                    {status.referenceId ? <span>Reference {status.referenceId}</span> : null}
                   </motion.div>
                 ) : null}
               </AnimatePresence>
 
               <p className="privacy-note">
-                Only for diploma and engineering CSE students. No branch selector is shown anywhere on this platform.
+                Only for diploma and engineering CSE students. No branch
+                selector is shown anywhere on this platform.
               </p>
             </motion.form>
 
@@ -879,7 +1028,11 @@ function App() {
                 </div>
                 <div>
                   <span>Idea mode</span>
-                  <strong>{form.ideaMode === 'guided' ? 'Let us choose' : 'I have my own idea'}</strong>
+                  <strong>
+                    {form.ideaMode === "guided"
+                      ? "Let us choose"
+                      : "I have my own idea"}
+                  </strong>
                 </div>
                 <div className="summary-card__wide">
                   <span>Idea</span>
@@ -894,8 +1047,9 @@ function App() {
               <div className="summary-note">
                 <strong>Trusted flow</strong>
                 <p>
-                  The form does not ask for branch selection. The package is carried forward automatically, and the
-                  submission goes straight to the connected platform without a custom backend.
+                  The form does not ask for branch selection. The package is
+                  carried forward automatically, and the submission goes
+                  straight to the connected platform without a custom backend.
                 </p>
               </div>
 
@@ -912,12 +1066,20 @@ function App() {
       <footer className="footer">
         <div>
           <strong>Project Studio</strong>
-          <p>Built for diploma and engineering CSE students who want a clear, premium, and trustworthy request flow.</p>
+          <p>
+            Built for diploma and engineering CSE students who want a clear,
+            premium, and trustworthy request flow.
+          </p>
         </div>
 
         <div className="footer-links">
           {navItems.map((item) => (
-            <button key={item.id} type="button" className="footer-link" onClick={() => scrollToSection(item.id)}>
+            <button
+              key={item.id}
+              type="button"
+              className="footer-link"
+              onClick={() => scrollToSection(item.id)}
+            >
               {item.label}
             </button>
           ))}
