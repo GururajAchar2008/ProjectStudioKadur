@@ -1626,3 +1626,6 @@ a {
     scroll-behavior: auto !important;
   }
 }
+.none{
+  display: none !important;
+}
