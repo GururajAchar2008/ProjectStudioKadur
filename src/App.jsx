@@ -767,10 +767,11 @@ function App() {
           <div className="request-grid">
             <motion.form
               className="request-form"
-              action="https://usebasin.com/f/b0ea3893312a"
+              action="https://api.web3forms.com/submit"
               method="POST"
               variants={itemVariants}
             >
+              <input type="hidden" name="access_key" value="96557d32-0156-4c35-840a-4451029b1178"></input>
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
