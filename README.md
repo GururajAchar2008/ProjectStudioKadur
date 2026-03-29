@@ -71,3 +71,5 @@ The project is set up to work with GitHub Pages without changing the Vite base p
 2. Make sure Pages is set to `GitHub Actions`, not `Deploy from a branch`.
 3. Open DevTools and check for a missing `assets/index-*.js` file.
 4. Confirm the repository was pushed after the latest code changes.
+5. If you see `GET /src/main.jsx 404`, GitHub Pages is still serving the source `index.html` instead of the built `dist` site.
+# ProjectStudio
