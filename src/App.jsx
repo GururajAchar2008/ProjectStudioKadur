@@ -210,6 +210,14 @@ function displayValue(value, fallback = 'Pending') {
   return String(value || '').trim() || fallback;
 }
 
+function resolveThankYouUrl() {
+  if (typeof window === 'undefined') {
+    return '/thankyou/';
+  }
+
+  return new URL('thankyou/', window.location.href).href;
+}
+
 function SectionHeading({ eyebrow, title, copy }) {
   return (
     <div className="section-heading">
@@ -332,13 +340,10 @@ function App() {
   const [selectedPackageId, setSelectedPackageId] = useState('starter');
   const [form, setForm] = useState(formDefaults);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [status, setStatus] = useState({
-    kind: 'idle',
-    message: '',
-  });
 
   const activePackage = packages.find((item) => item.id === selectedPackageId) ?? packages[1];
   const today = new Date().toISOString().slice(0, 10);
+  const thankYouUrl = resolveThankYouUrl();
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -382,24 +387,15 @@ function App() {
     };
   }, [isMobileMenuOpen]);
 
-  const clearStatus = () => {
-    setStatus({
-      kind: 'idle',
-      message: '',
-    });
-  };
-
   const updateField = (field, value) => {
     setForm((current) => ({
       ...current,
       [field]: value,
     }));
-    clearStatus();
   };
 
   const handlePackageSelect = (id) => {
     setSelectedPackageId(id);
-    clearStatus();
   };
 
   const navigateToSection = (id) => {
@@ -771,7 +767,8 @@ function App() {
               method="POST"
               variants={itemVariants}
             >
-              <input type="hidden" name="access_key" value="96557d32-0156-4c35-840a-4451029b1178"></input>
+              <input type="hidden" name="access_key" value="96557d32-0156-4c35-840a-4451029b1178" />
+              <input type="hidden" name="from_name" value="Project Studio" />
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
@@ -787,7 +784,7 @@ function App() {
 
               <input
                 type="hidden"
-                name="_subject"
+                name="subject"
                 value={`Project Studio request - ${activePackage.name}`}
               />
               <input
@@ -821,11 +818,15 @@ function App() {
                 value={activePackage.support}
               />
               <input type="hidden" name="ideaMode" value={form.ideaMode} />
-              <input
-                type="hidden"
-                name="_replyto"
-                value={form.contact.includes("@") ? form.contact.trim() : ""}
-              />
+              {form.contact.includes('@') ? (
+                <input
+                  type="hidden"
+                  name="replyto"
+                  value={form.contact.trim()}
+                />
+              ) : null}
+              <input type="hidden" name="redirect" value={thankYouUrl} />
+              <input type="checkbox" name="botcheck" className="none" tabIndex={-1} aria-hidden="true" />
 
               <div className="form-grid">
                 <label className="field">
@@ -978,24 +979,10 @@ function App() {
                   Submit request
                 </button>
                 <p className="form-note">
-                  Your request will go directly to the configured form endpoint
-                  with the selected package and submitted details.
+                  Your request will go directly to Web3Forms and then open the
+                  thank-you page after a successful submission.
                 </p>
               </div>
-
-              <AnimatePresence>
-                {status.kind === "error" ? (
-                  <motion.div
-                    className="status-banner status-banner--error"
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 12 }}
-                  >
-                    <strong>Submission failed</strong>
-                    <p>{status.message}</p>
-                  </motion.div>
-                ) : null}
-              </AnimatePresence>
 
               <p className="privacy-note">
                 Only for diploma and engineering CSE students. No branch

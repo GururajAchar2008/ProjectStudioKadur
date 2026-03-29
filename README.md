@@ -1,12 +1,12 @@
 # Project Studio
 
-A React + Vite website for diploma and engineering CSE students to browse sample projects, choose a package, and submit a request through a platform like Formspree.
+A React + Vite website for diploma and engineering CSE students to browse sample projects, choose a package, and submit a request through Web3Forms.
 
 ## What You Need
 
 - Node.js 18 or newer
 - A GitHub repository
-- A form endpoint from Formspree or another compatible service
+- A form endpoint from Web3Forms or another compatible service
 
 ## Local Setup
 
@@ -55,7 +55,8 @@ The project is set up to work with GitHub Pages without changing the Vite base p
 
 ## Form Submission
 
-- The form posts directly to the hardcoded Formspree action in `src/App.jsx`.
+- The form posts directly to the hardcoded Web3Forms action in `src/App.jsx`.
+- Successful submissions redirect to `/thankyou/`.
 - You do not need an `.env` file for the current form setup.
 - This version is frontend-only, so no custom backend is needed.
 

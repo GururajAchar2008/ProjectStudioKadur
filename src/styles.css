@@ -1427,6 +1427,109 @@ a {
   gap: 6px;
 }
 
+.thankyou-topbar {
+  width: var(--container);
+  margin: 16px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.thankyou-main {
+  width: var(--container);
+  margin: 0 auto;
+  padding: 18px 0 64px;
+}
+
+.thankyou-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: clamp(20px, 3vw, 34px);
+  align-items: center;
+}
+
+.thankyou-copy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 18px;
+  padding: clamp(8px, 2vw, 20px) 0;
+  min-width: 0;
+}
+
+.thankyou-copy h1 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2.4rem, 5.8vw, 5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.thankyou-copy p {
+  margin: 0;
+  max-width: 58ch;
+  font-size: 1.05rem;
+  color: var(--text-soft);
+}
+
+.thankyou-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.thankyou-side {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 16px;
+  align-content: start;
+  min-width: 0;
+}
+
+.thankyou-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.thankyou-receipt {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.thankyou-receipt span {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.thankyou-receipt p {
+  margin: 0;
+  color: var(--text-soft);
+}
+
+.thankyou-note ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 8px;
+  color: var(--text-soft);
+}
+
+.thankyou-note li::marker {
+  color: var(--accent-strong);
+}
+
 @keyframes drift {
   0%,
   100% {
@@ -1449,6 +1552,10 @@ a {
 
   .request-summary {
     position: static;
+  }
+
+  .thankyou-panel {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1514,6 +1621,15 @@ a {
     flex-direction: column;
   }
 
+  .thankyou-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .thankyou-main {
+    padding-top: 12px;
+  }
+
   .topbar {
     padding: 12px 14px;
   }
@@ -1523,6 +1639,10 @@ a {
   }
 
   .hero-copy h1 {
+    max-width: 100%;
+  }
+
+  .thankyou-copy h1 {
     max-width: 100%;
   }
 
