@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { useEffect } from 'react';
+import { StrictMode, useEffect } from 'react';
+import ReactDOM from 'react-dom/client';
 import './styles.css';
 
 const projectLogo = '../favicon.svg';
@@ -167,5 +168,11 @@ function ThankYouPage() {
     </div>
   );
 }
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <ThankYouPage />
+  </StrictMode>,
+);
 
 export default ThankYouPage;
