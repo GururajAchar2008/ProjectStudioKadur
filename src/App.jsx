@@ -419,7 +419,12 @@ function App() {
           type="button"
           onClick={() => navigateToSection("home")}
         >
-          <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
+          <img
+            className="brand-mark"
+            src={projectLogo}
+            alt=""
+            aria-hidden="true"
+          />
           <span className="brand-copy">
             <strong>Project Studio</strong>
             <small>CSE final-year builds</small>
@@ -762,7 +767,7 @@ function App() {
           <div className="request-grid">
             <motion.form
               className="request-form"
-              action="https://formspree.io/f/mojpeejl"
+              action="https://usebasin.com/f/b0ea3893312a"
               method="POST"
               variants={itemVariants}
             >
