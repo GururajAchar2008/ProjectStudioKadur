@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(rootDir, 'index.html'),
+        smallworks: resolve(rootDir, 'smallworks/index.html'),
         thankyou: resolve(rootDir, 'thankyou/index.html'),
       },
     },

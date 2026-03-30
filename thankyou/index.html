@@ -13,17 +13,20 @@
       name="description"
       content="Project Studio has received your request and will follow up soon."
     />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#f5f8fc" />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
 
     <script>
       (function () {
         try {
           const stored = localStorage.getItem('project-studio-theme');
-          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-          const theme = stored === 'light' || stored === 'dark' ? stored : systemDark ? 'dark' : 'light';
+          const theme = stored === 'light' || stored === 'dark' ? stored : 'light';
           document.documentElement.dataset.theme = theme;
           document.documentElement.style.colorScheme = theme;
+          const themeColor = document.querySelector('meta[name="theme-color"]');
+          if (themeColor) {
+            themeColor.setAttribute('content', theme === 'dark' ? '#071019' : '#f5f8fc');
+          }
         } catch (error) {}
       })();
     </script>

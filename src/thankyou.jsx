@@ -7,11 +7,11 @@ const projectLogo = '../favicon.svg';
 
 const receiptCards = [
   {
-    title: 'Package captured',
-    copy: 'Your selected build level and timeline were sent with the request.',
+    title: 'Details captured',
+    copy: 'Your selected service, timeline, and contact details were sent with the request.',
   },
   {
-    title: 'Idea recorded',
+    title: 'Brief recorded',
     copy: 'The project direction, feature notes, and extra details are ready for review.',
   },
   {
@@ -21,8 +21,8 @@ const receiptCards = [
 ];
 
 const nextSteps = [
-  'We review the package choice and submission details.',
-  'We check the project scope against your deadline and notes.',
+  'We review the selected service and submission details.',
+  'We check the scope against your deadline and notes.',
   'We reach back out using the contact details you entered.',
 ];
 
@@ -59,7 +59,7 @@ const itemVariants = {
 
 function resolveInitialTheme() {
   if (typeof window === 'undefined') {
-    return 'dark';
+    return 'light';
   }
 
   try {
@@ -72,17 +72,25 @@ function resolveInitialTheme() {
     // Some browsers block localStorage in private or hardened modes.
   }
 
-  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  return 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
+  if (themeColor) {
+    themeColor.setAttribute('content', theme === 'dark' ? '#071019' : '#f5f8fc');
+  }
 }
 
 function ThankYouPage() {
   const theme = resolveInitialTheme();
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
+    applyTheme(theme);
 
     try {
       window.localStorage.setItem('project-studio-theme', theme);
@@ -124,14 +132,14 @@ function ThankYouPage() {
             <span className="eyebrow eyebrow--hero">Web3Forms handoff complete</span>
             <h1>Thanks. Your request is in.</h1>
             <p>
-              We’ve received the package, timeline, contact details, and idea
+              We’ve received the service, timeline, contact details, and idea
               notes. We’ll review everything and follow up from here.
             </p>
 
             <div className="summary-chips" aria-label="Submission summary">
               <span>Inbox confirmed</span>
-              <span>Package carried forward</span>
-              <span>No branch selector</span>
+              <span>Details carried forward</span>
+              <span>Fast response route</span>
             </div>
 
             <div className="thankyou-actions">

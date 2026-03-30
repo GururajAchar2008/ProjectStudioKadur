@@ -1,130 +1,166 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'packages', label: 'Packages' },
-  { id: 'process', label: 'Process' },
-  { id: 'request', label: 'Request' },
+  { id: "home", label: "Home", type: "section" },
+  { id: "projects", label: "Projects", type: "section" },
+  { id: "packages", label: "Packages", type: "section" },
+  {
+    id: "small-works",
+    label: "Small projects",
+    type: "link",
+    href: "smallworks/",
+  },
+  { id: "process", label: "Process", type: "section" },
+  { id: "request", label: "Request", type: "section" },
 ];
 
 const trustFeatures = [
   {
-    title: 'Platform-ready intake',
-    copy: 'Every request becomes a structured lead with the package, date, contact, and idea notes.',
+    title: "Platform-ready intake",
+    copy: "Every request becomes a structured lead with the package, date, contact, and idea notes.",
   },
   {
-    title: 'CSE only',
-    copy: 'No branch selector. The experience is focused on diploma and engineering CSE students.',
+    title: "CSE only",
+    copy: "No branch selector. The experience is focused on diploma and engineering CSE students.",
   },
   {
-    title: 'Smooth package flow',
-    copy: 'Choose a package once and the form inherits it automatically across the page.',
+    title: "Smooth package flow",
+    copy: "Choose a package once and the form inherits it automatically across the page.",
   },
   {
-    title: 'Refined, calm visuals',
-    copy: 'Teal, blue, and glass surfaces give the site a fresh but trustworthy project-studio look.',
+    title: "Refined, calm visuals",
+    copy: "Teal, blue, and glass surfaces give the site a fresh but trustworthy project-studio look.",
   },
 ];
 
+const projectPreviewBase = `${import.meta.env.BASE_URL}project-previews/`;
+
 const projects = [
   {
-    title: 'Smart Attendance Desk',
-    summary: 'A clean attendance tracker with role-based access, exportable reports, and dashboard filters.',
-    stack: ['React', 'Node', 'MySQL'],
-    accent: ['#0f766e', '#22d3ee'],
+    title: "Smart Attendance Desk",
+    summary:
+      "A clean attendance tracker with role-based access, exportable reports, and dashboard filters.",
+    stack: ["React", "Node", "MySQL"],
+    accent: ["#0f172a", "#334155"],
+    preview: `${projectPreviewBase}ad.png`,
   },
   {
-    title: 'Campus Events Portal',
-    summary: 'A registration-first event site with live announcements, admin editing, and reminder flows.',
-    stack: ['React', 'Express', 'MongoDB'],
-    accent: ['#1d4ed8', '#38bdf8'],
+    title: "Campus Events Portal",
+    summary:
+      "A registration-first event site with live announcements, admin editing, and reminder flows.",
+    stack: ["React", "Express", "MongoDB"],
+    accent: ["#1d4ed8", "#64748b"],
+    preview: `${projectPreviewBase}ce.png`,
   },
   {
-    title: 'Placement Readiness Hub',
-    summary: 'A placement support dashboard with resume sections, interview timelines, and progress cards.',
-    stack: ['React', 'API', 'Dashboard'],
-    accent: ['#059669', '#86efac'],
+    title: "Placement Readiness Hub",
+    summary:
+      "A placement support dashboard with resume sections, interview timelines, and progress cards.",
+    stack: ["React", "API", "Dashboard"],
+    accent: ["#0f766e", "#475569"],
+    preview: `${projectPreviewBase}pl.png`,
   },
   {
-    title: 'Library Flow System',
-    summary: 'A student-friendly issue and return tracker with search, history, and clear record keeping.',
-    stack: ['UI', 'CRUD', 'Reports'],
-    accent: ['#0f172a', '#14b8a6'],
+    title: "Library Flow System",
+    summary:
+      "A student-friendly issue and return tracker with search, history, and clear record keeping.",
+    stack: ["UI", "CRUD", "Reports"],
+    accent: ["#334155", "#94a3b8"],
+    preview: `${projectPreviewBase}lb.png`,
   },
 ];
 
 const packages = [
   {
-    id: 'starter',
-    name: 'Starter',
-    price: 'Rs. 3,400',
-    badge: 'Quick launch',
-    summary: 'Best for simple mini projects and clean final-year submissions.',
-    timeline: '5 to 7 days',
-    support: '1 revision round',
-    bullets: ['Responsive UI structure', 'Project roadmap guidance', 'Submission checklist'],
-    tone: '#0ea5e9',
+    id: "starter",
+    name: "Starter",
+    price: "Rs. 3,400",
+    badge: "Quick launch",
+    summary: "Best for simple mini projects and clean final-year submissions.",
+    description:
+      "No documentation is provided, and no PPT is included. This package is best when you only need the core project build.",
+    timeline: "5 to 7 days",
+    support: "1 revision round",
+    bullets: [
+      "Responsive UI structure",
+      "Project roadmap guidance",
+      "Submission checklist",
+    ],
+    tone: "#2563eb",
   },
   {
-    id: 'builder',
-    name: 'Builder Plus',
-    price: 'Rs. 5,299',
-    badge: 'Most chosen',
-    summary: 'Balanced support for students who want a polished demo and project flow.',
-    timeline: '7 to 12 days',
-    support: '2 revision rounds',
-    bullets: ['Frontend + backend planning', 'Database-friendly structure', 'Presentation-ready screens'],
-    tone: '#14b8a6',
+    id: "builder",
+    name: "Builder Plus",
+    price: "Rs. 5,299",
+    badge: "Most chosen",
+    summary:
+      "Balanced support for students who want a polished demo and project flow.",
+    description:
+      "Documentation is provided, but no PPT is included. It works well if you want the editable PDG report handled and plan to create the slides yourself.",
+    timeline: "7 to 12 days",
+    support: "2 revision rounds",
+    bullets: [
+      "Frontend + backend planning",
+      "Database-friendly structure",
+      "Presentation-ready screens",
+    ],
+    tone: "#0f766e",
   },
   {
-    id: 'signature',
-    name: 'Signature Builder',
-    price: 'Rs. 6,300',
-    badge: 'Luxury finish',
-    summary: 'For premium-looking showcases with deeper visual polish and stronger support.',
-    timeline: '12 to 18 days',
-    support: 'Priority support',
-    bullets: ['Luxury UI motion', 'Deployment guidance', 'Documentation polish'],
-    tone: '#f59e0b',
+    id: "signature",
+    name: "Signature Builder",
+    price: "Rs. 6,300",
+    badge: "Luxury finish",
+    summary:
+      "For premium-looking showcases with deeper visual polish and stronger support.",
+    description:
+      "Documentation is provided, and a PPT is prepared for every CIE and examination. We also guide you on how to explain the slides clearly and confidently during the presentation.",
+    timeline: "12 to 18 days",
+    support: "Priority support",
+    bullets: [
+      "Luxury UI motion",
+      "Deployment guidance",
+      "Documentation polish",
+    ],
+    tone: "#475569",
   },
 ];
 
 const processSteps = [
   {
-    title: 'Pick a package',
-    copy: 'Tap the package that matches your submission timeline and project ambition.',
+    title: "Pick a package",
+    copy: "Tap the package that matches your submission timeline and project ambition.",
   },
   {
-    title: 'Share your idea',
-    copy: 'Describe your concept, or let us choose the idea direction for you.',
+    title: "Share your idea",
+    copy: "Describe your concept, or let us choose the idea direction for you.",
   },
   {
-    title: 'Submit once',
-    copy: 'The form is sent to the connected inbox with all typed details and the selected package.',
+    title: "Submit once",
+    copy: "The form is sent to the connected inbox with all typed details and the selected package.",
   },
 ];
 
 const ideaSuggestions = [
-  'Attendance tracker',
-  'Campus event portal',
-  'Placement dashboard',
-  'Library manager',
-  'Project showcase site',
-  'Exam prep hub',
+  "Attendance tracker",
+  "Campus event portal",
+  "Placement dashboard",
+  "Library manager",
+  "Project showcase site",
+  "Exam prep hub",
 ];
 
 const projectLogo = `${import.meta.env.BASE_URL}favicon.svg`;
 
 const formDefaults = () => ({
-  fullName: '',
-  collegeName: '',
-  contact: '',
-  submissionDate: '',
-  ideaMode: 'guided',
-  projectIdea: '',
-  notes: '',
+  fullName: "",
+  collegeName: "",
+  contact: "",
+  submissionDate: "",
+  ideaMode: "guided",
+  projectIdea: "",
+  notes: "",
 });
 
 const sectionVariants = {
@@ -155,44 +191,53 @@ const itemVariants = {
 };
 
 function resolveInitialTheme() {
-  if (typeof window === 'undefined') {
-    return 'dark';
+  if (typeof window === "undefined") {
+    return "light";
   }
 
   try {
-    const stored = window.localStorage.getItem('project-studio-theme');
+    const stored = window.localStorage.getItem("project-studio-theme");
 
-    if (stored === 'light' || stored === 'dark') {
+    if (stored === "light" || stored === "dark") {
       return stored;
     }
   } catch (error) {
     // Some browsers block localStorage in private or hardened modes.
   }
 
-  return typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
+  return "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
+  if (themeColor) {
+    themeColor.setAttribute("content", theme === "dark" ? "#071019" : "#f5f8fc");
+  }
 }
 
 function scrollToSection(id) {
   document.getElementById(id)?.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start',
+    behavior: "smooth",
+    block: "start",
   });
 }
 
 function escapeHtml(input) {
   return String(input)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
 }
 
 function formatDate(value) {
   if (!value) {
-    return 'Pending';
+    return "Pending";
   }
 
   const parsed = new Date(`${value}T00:00:00`);
@@ -201,21 +246,29 @@ function formatDate(value) {
     return value;
   }
 
-  return new Intl.DateTimeFormat('en-IN', {
-    dateStyle: 'medium',
+  return new Intl.DateTimeFormat("en-IN", {
+    dateStyle: "medium",
   }).format(parsed);
 }
 
-function displayValue(value, fallback = 'Pending') {
-  return String(value || '').trim() || fallback;
+function displayValue(value, fallback = "Pending") {
+  return String(value || "").trim() || fallback;
 }
 
 function resolveThankYouUrl() {
-  if (typeof window === 'undefined') {
-    return '/thankyou/';
+  if (typeof window === "undefined") {
+    return "/thankyou/";
   }
 
-  return new URL('thankyou/', window.location.href).href;
+  return new URL("thankyou/", window.location.href).href;
+}
+
+function resolveSmallWorksUrl() {
+  if (typeof window === "undefined") {
+    return "/smallworks/";
+  }
+
+  return new URL("smallworks/", window.location.href).href;
 }
 
 function SectionHeading({ eyebrow, title, copy }) {
@@ -229,7 +282,7 @@ function SectionHeading({ eyebrow, title, copy }) {
 }
 
 function ThemeToggle({ theme, onToggle }) {
-  const nextTheme = theme === 'dark' ? 'light' : 'dark';
+  const nextTheme = theme === "dark" ? "light" : "dark";
 
   return (
     <button
@@ -249,29 +302,24 @@ function ThemeToggle({ theme, onToggle }) {
 
 function ProjectCard({ project }) {
   return (
-    <motion.article className="project-card" variants={itemVariants} whileHover={{ y: -8 }}>
+    <motion.article
+      className="project-card"
+      variants={itemVariants}
+      whileHover={{ y: -8 }}
+    >
       <div
         className="project-card__preview"
         style={{
           background: `linear-gradient(135deg, ${project.accent[0]}, ${project.accent[1]})`,
         }}
       >
-        <div className="project-card__chrome">
-          <span />
-          <span />
-          <span />
-        </div>
-        <div className="project-card__mock">
-          <span className="project-card__line project-card__line--wide" />
-          <span className="project-card__line" />
-          <span className="project-card__line" />
-          <div className="project-card__grid">
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
-        </div>
+        <img
+          className="project-card__image"
+          src={project.preview}
+          alt={`${project.title} dashboard preview`}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="project-card__body">
         <h3>{project.title}</h3>
@@ -292,7 +340,7 @@ function PackageCard({ packageItem, active, onSelect }) {
   return (
     <motion.button
       type="button"
-      className={`package-card ${active ? 'package-card--active' : ''}`}
+      className={`package-card ${active ? "package-card--active" : ""}`}
       variants={itemVariants}
       whileHover={{ y: -8 }}
       whileTap={{ scale: 0.99 }}
@@ -307,7 +355,9 @@ function PackageCard({ packageItem, active, onSelect }) {
       <div className="package-card__top">
         <div className="package-card__top-left">
           <span className="package-card__badge">{packageItem.badge}</span>
-          {active ? <span className="package-card__selected">Selected</span> : null}
+          {active ? (
+            <span className="package-card__selected">Selected</span>
+          ) : null}
         </div>
         <div className="package-card__price">
           <span>Price</span>
@@ -316,6 +366,9 @@ function PackageCard({ packageItem, active, onSelect }) {
       </div>
       <h3>{packageItem.name}</h3>
       <p>{packageItem.summary}</p>
+      {packageItem.description && (
+        <p className="package-card__description">{packageItem.description}</p>
+      )}
       <ul>
         {packageItem.bullets.map((bullet) => (
           <li key={bullet}>{bullet}</li>
@@ -337,27 +390,28 @@ function PackageCard({ packageItem, active, onSelect }) {
 
 function App() {
   const [theme, setTheme] = useState(resolveInitialTheme);
-  const [selectedPackageId, setSelectedPackageId] = useState('starter');
+  const [selectedPackageId, setSelectedPackageId] = useState("starter");
   const [form, setForm] = useState(formDefaults);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const activePackage = packages.find((item) => item.id === selectedPackageId) ?? packages[1];
+  const activePackage =
+    packages.find((item) => item.id === selectedPackageId) ?? packages[1];
   const today = new Date().toISOString().slice(0, 10);
   const thankYouUrl = resolveThankYouUrl();
+  const smallWorksUrl = resolveSmallWorksUrl();
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.style.colorScheme = theme;
+    applyTheme(theme);
 
     try {
-      window.localStorage.setItem('project-studio-theme', theme);
+      window.localStorage.setItem("project-studio-theme", theme);
     } catch (error) {
       // Ignore storage failures and keep the app usable.
     }
   }, [theme]);
 
   useEffect(() => {
-    document.title = 'Project Studio | CSE Final-Year Builds';
+    document.title = "Project Studio | CSE Final-Year Builds";
   }, []);
 
   useEffect(() => {
@@ -366,21 +420,23 @@ function App() {
     }
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsMobileMenuOpen(false);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : previousOverflow;
+    document.body.style.overflow = isMobileMenuOpen
+      ? "hidden"
+      : previousOverflow;
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -401,6 +457,17 @@ function App() {
   const navigateToSection = (id) => {
     setIsMobileMenuOpen(false);
     window.requestAnimationFrame(() => scrollToSection(id));
+  };
+
+  const navigateToNavItem = (item) => {
+    setIsMobileMenuOpen(false);
+
+    if (item.type === "link") {
+      window.location.href = item.href;
+      return;
+    }
+
+    window.requestAnimationFrame(() => scrollToSection(item.id));
   };
 
   return (
@@ -429,14 +496,25 @@ function App() {
 
         <nav className="nav-links" aria-label="Primary">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="nav-link"
-              onClick={() => navigateToSection(item.id)}
-            >
-              {item.label}
-            </button>
+            item.type === "link" ? (
+              <a
+                key={item.id}
+                className="nav-link"
+                href={item.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.id}
+                type="button"
+                className="nav-link"
+                onClick={() => navigateToSection(item.id)}
+              >
+                {item.label}
+              </button>
+            )
           ))}
         </nav>
 
@@ -503,14 +581,25 @@ function App() {
 
               <nav className="mobile-menu__nav" aria-label="Mobile primary">
                 {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    className="mobile-menu__link"
-                    onClick={() => navigateToSection(item.id)}
-                  >
-                    {item.label}
-                  </button>
+                  item.type === "link" ? (
+                    <a
+                      key={item.id}
+                      className="mobile-menu__link"
+                      href={item.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className="mobile-menu__link"
+                      onClick={() => navigateToNavItem(item)}
+                    >
+                      {item.label}
+                    </button>
+                  )
                 ))}
               </nav>
 
@@ -575,6 +664,9 @@ function App() {
               >
                 Start request
               </button>
+              <a className="button button-secondary" href={smallWorksUrl}>
+                Small projects
+              </a>
             </div>
             <div className="hero-stats">
               <div>
@@ -767,7 +859,6 @@ function App() {
               method="POST"
               variants={itemVariants}
             >
-    
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
@@ -800,6 +891,11 @@ function App() {
                 type="hidden"
                 name="selectedPackageSummary"
                 value={activePackage.summary}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageDescription"
+                value={activePackage.description ?? ""}
               />
               <input
                 type="hidden"
@@ -1072,14 +1168,20 @@ function App() {
 
         <div className="footer-links">
           {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="footer-link"
-              onClick={() => scrollToSection(item.id)}
-            >
-              {item.label}
-            </button>
+            item.type === "link" ? (
+              <a key={item.id} className="footer-link" href={item.href}>
+                {item.label}
+              </a>
+            ) : (
+              <button
+                key={item.id}
+                type="button"
+                className="footer-link"
+                onClick={() => scrollToSection(item.id)}
+              >
+                {item.label}
+              </button>
+            )
           ))}
         </div>
       </footer>
