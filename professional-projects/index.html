@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Project Studio professional projects page for business owners who want a polished website build."
+    />
+    <meta name="theme-color" content="#f5f8fc" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+
+    <script>
+      (function () {
+        try {
+          const stored = localStorage.getItem("project-studio-theme");
+          const theme = stored === "light" || stored === "dark" ? stored : "light";
+          document.documentElement.dataset.theme = theme;
+          document.documentElement.style.colorScheme = theme;
+          const themeColor = document.querySelector('meta[name="theme-color"]');
+          if (themeColor) {
+            themeColor.setAttribute("content", theme === "dark" ? "#071019" : "#f5f8fc");
+          }
+        } catch (error) {}
+      })();
+    </script>
+    <title>Professional Projects | Project Studio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/professionalprojects.jsx"></script>
+  </body>
+</html>

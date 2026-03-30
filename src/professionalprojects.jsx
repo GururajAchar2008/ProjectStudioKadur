@@ -5,21 +5,67 @@ import "./styles.css";
 
 const projectLogo = "../favicon.svg";
 
+const businessTypes = [
+  {
+    id: "consultant",
+    title: "Consultant / CA",
+    copy: "Clean trust-first pages for professionals who need credibility and leads.",
+  },
+  {
+    id: "clinic",
+    title: "Clinic / Doctor",
+    copy: "Appointment-ready websites with service pages, maps, and contact flow.",
+  },
+  {
+    id: "agency",
+    title: "Agency / Studio",
+    copy: "Showcase your services, proof of work, and stronger lead capture.",
+  },
+  {
+    id: "hospitality",
+    title: "Restaurant / Cafe",
+    copy: "Menu, gallery, booking, and location details that help people decide quickly.",
+  },
+];
+
+const websiteGoals = [
+  {
+    id: "lead_gen",
+    title: "Lead generation",
+    copy: "Turn visitors into calls, WhatsApp chats, and enquiry forms.",
+  },
+  {
+    id: "booking",
+    title: "Booking ready",
+    copy: "Let people book consultations, visits, or services directly.",
+  },
+  {
+    id: "brand",
+    title: "Brand credibility",
+    copy: "Make the business look established, clear, and easy to trust.",
+  },
+  {
+    id: "sales",
+    title: "Sell online",
+    copy: "Support products, packages, deposits, or payment flows.",
+  },
+];
+
 const contentModes = [
   {
     id: "ready",
     title: "Content ready",
-    copy: "You already have the text, points, or reference notes.",
+    copy: "You already have the copy, images, and service list.",
   },
   {
     id: "needs_help",
-    title: "Need content help",
-    copy: "You want help shaping the message or slide flow.",
+    title: "Need copy help",
+    copy: "You need help shaping the service copy and page flow.",
   },
   {
-    id: "design_only",
-    title: "Design only",
-    copy: "The content is mostly fixed and you need the layout finished.",
+    id: "strategy",
+    title: "Need strategy",
+    copy: "You want help planning the website from the ground up.",
   },
 ];
 
@@ -27,155 +73,115 @@ const speedModes = [
   {
     id: "standard",
     title: "Standard",
-    copy: "Normal turnaround with the best value.",
+    copy: "Balanced turnaround with the best value.",
   },
   {
-    id: "urgent",
-    title: "Urgent",
+    id: "priority",
+    title: "Priority",
     copy: "Faster delivery with a rush fee added.",
   },
 ];
 
-const smallWorkOffers = [
+const featureOptions = [
+  { id: "whatsapp", label: "WhatsApp CTA", price: 1500 },
+  { id: "maps", label: "Google Maps", price: 1000 },
+  { id: "seo", label: "SEO basics", price: 4500 },
+  { id: "cms", label: "CMS / blog", price: 6500 },
+  { id: "booking", label: "Booking system", price: 5000 },
+  { id: "payments", label: "Payments", price: 9000 },
+  { id: "analytics", label: "Analytics", price: 2000 },
+];
+
+const professionalPackages = [
   {
-    id: "ppt",
-    name: "PPT Making",
-    priceLabel: "From Rs. 699",
-    badge: "Student deck",
+    id: "launch",
+    name: "Business Launch",
+    priceLabel: "From Rs. 19,999",
+    badge: "Fast launch",
     summary:
-      "Quick, readable PowerPoint decks for seminars, project demos, and reviews.",
+      "A clean website for local businesses and professionals who need a solid first online presence.",
     description:
-      "Best when you already have the content and want the slides shaped into a clean flow with speaker notes.",
-    timeline: "Same day to 24 hours",
+      "Best for 4 to 5 pages with contact, services, trust sections, and mobile-first polish.",
+    timeline: "7 to 10 days",
     support: "1 revision round",
-    quantityLabel: "Slides",
-    defaultQuantity: 10,
-    quantityHint: "Base price includes up to 10 slides.",
-    basePrice: 699,
-    includedQuantity: 10,
-    extraUnitPrice: 60,
-    rushFee: 300,
-    outputs: ["PPTX + PDF", "PPTX only", "PDF only"],
+    pageLabel: "Pages",
+    defaultPages: 5,
+    pageHint: "Base price includes up to 5 pages.",
+    basePrice: 19999,
+    includedPages: 5,
+    extraPagePrice: 2500,
+    rushFee: 4000,
     bullets: [
-      "Up to 10 slides included",
-      "PPTX + PDF delivery",
-      "Speaker notes cleanup",
+      "Responsive website structure",
+      "Enquiry form and WhatsApp CTA",
+      "Google Maps and service pages",
     ],
     tone: "#2563eb",
   },
   {
-    id: "poster",
-    name: "Poster / Flyer",
-    priceLabel: "From Rs. 599",
-    badge: "Single creative",
+    id: "growth",
+    name: "Growth Site",
+    priceLabel: "From Rs. 34,999",
+    badge: "Most chosen",
     summary:
-      "Event posters, seminar flyers, WhatsApp notices, and simple promo graphics.",
+      "For businesses that need more pages, easier content updates, and a stronger lead flow.",
     description:
-      "Best for one clear visual with strong typography and a print-ready layout.",
-    timeline: "Same day to 2 days",
-    support: "1 revision round",
-    quantityLabel: "Designs",
-    defaultQuantity: 1,
-    quantityHint: "Base price covers 1 poster or flyer.",
-    basePrice: 599,
-    includedQuantity: 1,
-    extraUnitPrice: 200,
-    rushFee: 250,
-    outputs: ["PNG + PDF", "PNG only", "PDF only"],
+      "Ideal for service brands that want a CMS-ready site with SEO foundations and extra sections.",
+    timeline: "10 to 15 days",
+    support: "2 revision rounds",
+    pageLabel: "Pages",
+    defaultPages: 8,
+    pageHint: "Base price includes up to 8 pages.",
+    basePrice: 34999,
+    includedPages: 8,
+    extraPagePrice: 3000,
+    rushFee: 6000,
     bullets: [
-      "1 poster or flyer",
-      "PNG + PDF delivery",
-      "Print-ready sizing",
+      "CMS-ready content blocks",
+      "SEO-friendly structure",
+      "Analytics and stronger lead capture",
     ],
     tone: "#0f766e",
   },
   {
-    id: "social",
-    name: "Social Post",
-    priceLabel: "From Rs. 299",
-    badge: "Quick content",
+    id: "signature",
+    name: "Signature Business",
+    priceLabel: "From Rs. 59,999",
+    badge: "Premium finish",
     summary:
-      "Instagram, Facebook, and WhatsApp creatives for announcements or promotions.",
+      "Custom business websites with booking, integrations, and a polished premium presentation.",
     description:
-      "Great for simple announcement cards, quote posts, and short promo visuals.",
-    timeline: "Same day",
-    support: "1 revision round",
-    quantityLabel: "Posts",
-    defaultQuantity: 1,
-    quantityHint: "Base price covers 1 static post.",
-    basePrice: 299,
-    includedQuantity: 1,
-    extraUnitPrice: 120,
-    rushFee: 150,
-    outputs: ["PNG", "JPG"],
-    bullets: ["1 static post", "PNG/JPG delivery", "Brand colour matching"],
-    tone: "#64748b",
+      "Built for brands that need custom UI, advanced functionality, and a more premium launch experience.",
+    timeline: "15 to 25 days",
+    support: "Priority support",
+    pageLabel: "Pages",
+    defaultPages: 12,
+    pageHint: "Base price includes up to 12 pages.",
+    basePrice: 59999,
+    includedPages: 12,
+    extraPagePrice: 4000,
+    rushFee: 8000,
+    bullets: [
+      "Custom UI and motion",
+      "Booking or payment integrations",
+      "Advanced SEO and deployment support",
+    ],
+    tone: "#475569",
+  },
+];
+
+const processSteps = [
+  {
+    title: "Pick a package",
+    copy: "Choose the website build level that matches your launch plan and business size.",
   },
   {
-    id: "brochure",
-    name: "Brochure / Menu",
-    priceLabel: "From Rs. 1,499",
-    badge: "Multi-page",
-    summary:
-      "Short brochures, mini catalogues, menus, and profile sheets.",
-    description:
-      "Best for 2 to 4 pages with clean layout and editable source files.",
-    timeline: "1 to 3 days",
-    support: "2 revision rounds",
-    quantityLabel: "Pages",
-    defaultQuantity: 2,
-    quantityHint: "Base price covers 2 pages.",
-    basePrice: 1499,
-    includedQuantity: 2,
-    extraUnitPrice: 300,
-    rushFee: 350,
-    outputs: ["PDF", "Source file"],
-    bullets: ["2-page base", "PDF + source file", "Print-ready layout"],
-    tone: "#334155",
+    title: "Share the business",
+    copy: "Tell us what the company does, who the customers are, and what should be on the site.",
   },
   {
-    id: "banner",
-    name: "Thumbnail / Banner",
-    priceLabel: "From Rs. 349",
-    badge: "Quick asset",
-    summary:
-      "YouTube thumbnails, webinar banners, cover images, and simple hero graphics.",
-    description:
-      "A focused one-piece design built to catch attention fast.",
-    timeline: "Same day",
-    support: "1 revision round",
-    quantityLabel: "Creatives",
-    defaultQuantity: 1,
-    quantityHint: "Base price covers 1 creative.",
-    basePrice: 349,
-    includedQuantity: 1,
-    extraUnitPrice: 100,
-    rushFee: 100,
-    outputs: ["PNG", "Source file"],
-    bullets: ["1 creative asset", "PNG + source file", "Web ready"],
-    tone: "#b45309",
-  },
-  {
-    id: "cleanup",
-    name: "Formatting / Cleanup",
-    priceLabel: "From Rs. 249",
-    badge: "Small task",
-    summary:
-      "Alignment fixes, text cleanup, PDF polishing, and small design corrections.",
-    description:
-      "Ideal for quick freelancer tasks that just need a neat final finish.",
-    timeline: "Within 24 hours",
-    support: "1 revision round",
-    quantityLabel: "Files",
-    defaultQuantity: 1,
-    quantityHint: "Base price covers 1 file or document.",
-    basePrice: 249,
-    includedQuantity: 1,
-    extraUnitPrice: 50,
-    rushFee: 100,
-    outputs: ["PDF", "Editable file"],
-    bullets: ["1 file or doc", "Spacing and alignment fix", "PDF cleanup"],
-    tone: "#6b7280",
+    title: "Approve and launch",
+    copy: "We build, review, refine, and get the website ready for real customers to visit.",
   },
 ];
 
@@ -276,20 +282,20 @@ function resolveHomeUrl() {
   return new URL("../", window.location.href).href;
 }
 
+function resolveSmallWorksUrl() {
+  if (typeof window === "undefined") {
+    return "/smallworks/";
+  }
+
+  return new URL("../smallworks/", window.location.href).href;
+}
+
 function resolveThankYouUrl() {
   if (typeof window === "undefined") {
     return "/thankyou/";
   }
 
   return new URL("../thankyou/", window.location.href).href;
-}
-
-function resolveProfessionalProjectsUrl() {
-  if (typeof window === "undefined") {
-    return "/professional-projects/";
-  }
-
-  return new URL("../professional-projects/", window.location.href).href;
 }
 
 function SectionHeading({ eyebrow, title, copy }) {
@@ -321,7 +327,7 @@ function ThemeToggle({ theme, onToggle }) {
   );
 }
 
-function SmallWorkCard({ work, active, onSelect }) {
+function BusinessPackageCard({ packageItem, active, onSelect }) {
   return (
     <motion.button
       type="button"
@@ -329,114 +335,112 @@ function SmallWorkCard({ work, active, onSelect }) {
       variants={itemVariants}
       whileHover={{ y: -8 }}
       whileTap={{ scale: 0.99 }}
-      onClick={() => onSelect(work.id)}
+      onClick={() => onSelect(packageItem.id)}
       aria-pressed={active}
     >
       <div
         className="package-card__accent"
         style={{
-          background: `linear-gradient(135deg, ${work.tone}, rgba(255, 255, 255, 0))`,
+          background: `linear-gradient(135deg, ${packageItem.tone}, rgba(255, 255, 255, 0))`,
         }}
       />
       <div className="package-card__top">
         <div className="package-card__top-left">
-          <span className="package-card__badge">{work.badge}</span>
+          <span className="package-card__badge">{packageItem.badge}</span>
           {active ? <span className="package-card__selected">Selected</span> : null}
         </div>
         <div className="package-card__price">
           <span>Starting rate</span>
-          <strong>{work.priceLabel}</strong>
+          <strong>{packageItem.priceLabel}</strong>
         </div>
       </div>
-      <h3>{work.name}</h3>
-      <p>{work.summary}</p>
-      <p className="package-card__description">{work.description}</p>
+      <h3>{packageItem.name}</h3>
+      <p>{packageItem.summary}</p>
+      <p className="package-card__description">{packageItem.description}</p>
       <ul>
-        {work.bullets.map((bullet) => (
+        {packageItem.bullets.map((bullet) => (
           <li key={bullet}>{bullet}</li>
         ))}
       </ul>
       <div className="package-card__footer">
         <span>
           <small>Turnaround</small>
-          <strong>{work.timeline}</strong>
+          <strong>{packageItem.timeline}</strong>
         </span>
         <span>
           <small>Support</small>
-          <strong>{work.support}</strong>
+          <strong>{packageItem.support}</strong>
         </span>
       </div>
     </motion.button>
   );
 }
 
-function getBriefPlaceholder(workId) {
-  switch (workId) {
-    case "ppt":
-      return "Topic, slide count, and any reference PDF or notes.";
-    case "poster":
-      return "Event name, size, colours, and the message to highlight.";
-    case "social":
-      return "Caption, offer, or announcement text for the post.";
-    case "brochure":
-      return "Page order, copy, and print size or menu details.";
-    case "banner":
-      return "Channel, size, and the main call to action.";
-    case "cleanup":
-      return "What needs fixing and which file needs the update.";
+function getBriefPlaceholder(businessType) {
+  switch (businessType) {
+    case "clinic":
+      return "Services, booking flow, location, and any trust points you want highlighted.";
+    case "restaurant":
+      return "Menu structure, gallery notes, reservation flow, and what should stand out.";
+    case "agency":
+      return "Services, case studies, brand tone, and the action you want from visitors.";
+    case "consultant":
+      return "Your services, target clients, and the message you want the website to send.";
     default:
-      return "Share the main brief, reference links, and any must-have details.";
+      return "Tell us the business goal, pages needed, and any reference sites or notes.";
   }
 }
 
-function estimatePrice(work, form) {
-  const quantity = Math.max(
+function estimatePrice(packageItem, form) {
+  const pageCount = Math.max(
     1,
-    Number.parseInt(form.workCount, 10) || work.defaultQuantity,
+    Number.parseInt(form.pageCount, 10) || packageItem.defaultPages,
   );
-  const extraUnits = Math.max(0, quantity - work.includedQuantity);
-  const rushFee = form.deliverySpeed === "urgent" ? work.rushFee : 0;
+  const extraPages = Math.max(0, pageCount - packageItem.includedPages);
+  const extraFeatures = featureOptions.reduce((sum, feature) => {
+    return form.selectedFeatures.includes(feature.id) ? sum + feature.price : sum;
+  }, 0);
+  const rushFee = form.deliverySpeed === "priority" ? packageItem.rushFee : 0;
 
-  return work.basePrice + extraUnits * work.extraUnitPrice + rushFee;
+  return packageItem.basePrice + extraPages * packageItem.extraPagePrice + extraFeatures + rushFee;
 }
 
-function formDefaults(work) {
+function formDefaults(packageItem) {
   return {
     fullName: "",
     businessName: "",
     contact: "",
     deadline: "",
-    workCount: String(work.defaultQuantity),
+    pageCount: String(packageItem.defaultPages),
+    businessType: businessTypes[0].id,
+    websiteGoal: websiteGoals[0].id,
     deliverySpeed: "standard",
     contentStatus: "ready",
-    preferredOutput: work.outputs[0],
+    selectedFeatures: ["whatsapp", "maps"],
     referenceLink: "",
     brief: "",
     notes: "",
   };
 }
 
-function SmallWorksPage() {
+function ProfessionalProjectsPage() {
   const [theme, setTheme] = useState(resolveInitialTheme);
-  const [selectedWorkId, setSelectedWorkId] = useState("ppt");
-  const [form, setForm] = useState(() => formDefaults(smallWorkOffers[0]));
+  const [selectedPackageId, setSelectedPackageId] = useState("launch");
+  const [form, setForm] = useState(() => formDefaults(professionalPackages[0]));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const homeUrl = resolveHomeUrl();
+  const smallWorksUrl = resolveSmallWorksUrl();
   const thankYouUrl = resolveThankYouUrl();
-  const professionalProjectsUrl = resolveProfessionalProjectsUrl();
-  const selectedWork =
-    smallWorkOffers.find((work) => work.id === selectedWorkId) ?? smallWorkOffers[0];
-  const estimatedPrice = estimatePrice(selectedWork, form);
+  const selectedPackage =
+    professionalPackages.find((item) => item.id === selectedPackageId) ??
+    professionalPackages[0];
+  const estimatedPrice = estimatePrice(selectedPackage, form);
   const headerItems = [
     { id: "project-builds", label: "Project builds", type: "link", href: homeUrl },
-    {
-      id: "professional-projects",
-      label: "Professional projects",
-      type: "link",
-      href: professionalProjectsUrl,
-    },
-    { id: "services", label: "Services", type: "section" },
+    { id: "small-works", label: "Small works", type: "link", href: smallWorksUrl },
+    { id: "packages", label: "Packages", type: "section" },
+    { id: "process", label: "Process", type: "section" },
     { id: "request", label: "Request", type: "section" },
   ];
 
@@ -451,7 +455,7 @@ function SmallWorksPage() {
   }, [theme]);
 
   useEffect(() => {
-    document.title = "Small Works | Project Studio";
+    document.title = "Professional Projects | Project Studio";
   }, []);
 
   useEffect(() => {
@@ -484,10 +488,9 @@ function SmallWorksPage() {
   useEffect(() => {
     setForm((current) => ({
       ...current,
-      workCount: String(selectedWork.defaultQuantity),
-      preferredOutput: selectedWork.outputs[0],
+      pageCount: String(selectedPackage.defaultPages),
     }));
-  }, [selectedWork.id]);
+  }, [selectedPackage.id]);
 
   function updateField(field, value) {
     setForm((current) => ({
@@ -496,8 +499,17 @@ function SmallWorksPage() {
     }));
   }
 
-  function handleWorkSelect(workId) {
-    setSelectedWorkId(workId);
+  function toggleFeature(featureId) {
+    setForm((current) => {
+      const selected = current.selectedFeatures.includes(featureId)
+        ? current.selectedFeatures.filter((id) => id !== featureId)
+        : [...current.selectedFeatures, featureId];
+
+      return {
+        ...current,
+        selectedFeatures: selected,
+      };
+    });
   }
 
   function handleMenuItem(item) {
@@ -522,7 +534,7 @@ function SmallWorksPage() {
           <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
           <span className="brand-copy">
             <strong>Project Studio</strong>
-            <small>Small freelance works</small>
+            <small>Professional projects</small>
           </span>
         </a>
 
@@ -531,7 +543,7 @@ function SmallWorksPage() {
           className={`menu-toggle ${isMenuOpen ? "menu-toggle--open" : ""}`}
           aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isMenuOpen}
-          aria-controls="small-works-menu"
+          aria-controls="professional-projects-menu"
           onClick={() => setIsMenuOpen((current) => !current)}
         >
           <span />
@@ -551,7 +563,7 @@ function SmallWorksPage() {
             />
 
             <motion.aside
-              id="small-works-menu"
+              id="professional-projects-menu"
               className="mobile-menu__panel"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
@@ -573,7 +585,7 @@ function SmallWorksPage() {
                 </button>
               </div>
 
-              <nav className="mobile-menu__nav" aria-label="Small works primary">
+              <nav className="mobile-menu__nav" aria-label="Professional projects primary">
                 {headerItems.map((item) => (
                   item.type === "link" ? (
                     <a
@@ -610,7 +622,7 @@ function SmallWorksPage() {
               <div className="mobile-menu__section mobile-menu__section--note">
                 <span className="mobile-menu__eyebrow">Quick note</span>
                 <p>
-                  The quick-work links and theme switch live in the drawer so the top bar stays clean on every screen.
+                  The business links and theme switch now live in the drawer so the top bar stays minimal on every screen.
                 </p>
               </div>
             </motion.aside>
@@ -628,51 +640,48 @@ function SmallWorksPage() {
         >
           <div className="hero-copy">
             <span className="eyebrow eyebrow--hero">
-              Small assignments and quick design help
+              Professional websites for business owners
             </span>
-            <h1>
-              Fast-turnaround PPTs, posters, and other small freelance jobs.
-            </h1>
+            <h1>Book a polished website build for your business.</h1>
             <p className="hero-text">
-              This page is for one-off work like presentation decks, poster
-              design, social media creatives, thumbnails, banners, and light
-              formatting. Prices start from current Indian freelance ranges and
-              move with slide count, urgency, and how much content is ready.
+              This page is for consultants, clinics, agencies, restaurants, and
+              growing local brands that need a professional website with trust,
+              lead generation, and a clean customer journey.
             </p>
             <div className="hero-actions">
               <button
                 type="button"
                 className="button button-primary"
-                onClick={() => scrollToSection("services")}
+                onClick={() => scrollToSection("packages")}
               >
-                Browse services
+                Browse packages
               </button>
               <button
                 type="button"
                 className="button button-secondary"
                 onClick={() => scrollToSection("request")}
               >
-                Start request
+                Start booking
               </button>
             </div>
             <div className="hero-stats">
               <div>
-                <strong>Rs. 699</strong>
-                <span>PPT start</span>
+                <strong>Rs. 19,999</strong>
+                <span>Launch start</span>
               </div>
               <div>
-                <strong>Rs. 599</strong>
-                <span>Poster start</span>
+                <strong>Rs. 34,999</strong>
+                <span>Growth start</span>
               </div>
               <div>
-                <strong>Rs. 299</strong>
-                <span>Social post</span>
+                <strong>Rs. 59,999</strong>
+                <span>Signature start</span>
               </div>
             </div>
             <div className="hero-notes">
-              <span className="note-chip">One-off jobs</span>
-              <span className="note-chip">Market-aligned starting prices</span>
-              <span className="note-chip">Fast handoff</span>
+              <span className="note-chip">Lead-focused</span>
+              <span className="note-chip">Business-ready</span>
+              <span className="note-chip">Market-aware pricing</span>
             </div>
           </div>
 
@@ -685,17 +694,17 @@ function SmallWorksPage() {
             >
               <div className="hero-visual__top">
                 <span className="hero-visual__status">Live quote preview</span>
-                <span className="hero-visual__badge">{selectedWork.badge}</span>
+                <span className="hero-visual__badge">{selectedPackage.badge}</span>
               </div>
-              <h2>{selectedWork.name}</h2>
+              <h2>{selectedPackage.name}</h2>
               <div className="hero-visual__price">
                 <span>Starting rate</span>
-                <strong>{selectedWork.priceLabel}</strong>
+                <strong>{selectedPackage.priceLabel}</strong>
               </div>
-              <p>{selectedWork.summary}</p>
+              <p>{selectedPackage.summary}</p>
 
               <div className="feature-list">
-                {selectedWork.bullets.map((bullet) => (
+                {selectedPackage.bullets.map((bullet) => (
                   <div className="feature-row" key={bullet}>
                     <span className="feature-dot" />
                     <span>{bullet}</span>
@@ -709,8 +718,8 @@ function SmallWorksPage() {
                   <strong>{formatMoney(estimatedPrice)}</strong>
                 </div>
                 <div>
-                  <span>Output</span>
-                  <strong>{form.preferredOutput}</strong>
+                  <span>Timeline</span>
+                  <strong>{selectedPackage.timeline}</strong>
                 </div>
               </div>
             </div>
@@ -718,35 +727,109 @@ function SmallWorksPage() {
         </motion.section>
 
         <motion.section
-          className="panel"
-          id="services"
+          className="panel trust-panel"
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.18 }}
           variants={sectionVariants}
         >
           <SectionHeading
-            eyebrow="Small works"
-            title="Pick the quick job, then let the form carry the details forward."
-            copy="Each card uses market-friendly starting prices for simple student and freelancer tasks. Select one, then the estimate updates automatically."
+            eyebrow="Why it works"
+            title="A cleaner, business-first website flow."
+            copy="The site is designed to make the business look trustworthy, explain the offer clearly, and turn interest into a direct enquiry."
+          />
+
+          <motion.div className="trust-grid" variants={listVariants}>
+            {[
+              {
+                title: "Lead-ready structure",
+                copy: "Contact forms, WhatsApp, and strong calls to action stay easy to find.",
+              },
+              {
+                title: "Professional credibility",
+                copy: "Calm layouts and clear hierarchy help the business feel established.",
+              },
+              {
+                title: "Scalable from day one",
+                copy: "The site can grow into a blog, booking system, or CMS later.",
+              },
+              {
+                title: "Simple handoff",
+                copy: "We keep the booking and review flow easy so business owners can move quickly.",
+              },
+            ].map((feature) => (
+              <motion.article
+                className="trust-card"
+                key={feature.title}
+                variants={itemVariants}
+              >
+                <span className="trust-card__mark" />
+                <h3>{feature.title}</h3>
+                <p>{feature.copy}</p>
+              </motion.article>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        <motion.section
+          className="panel"
+          id="packages"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          variants={sectionVariants}
+        >
+          <SectionHeading
+            eyebrow="Packages"
+            title="Choose the build level, then let the form carry the details forward."
+            copy="The pricing starts in line with current Indian small-business and professional website ranges, and can move with page count, features, and urgency."
           />
 
           <motion.div className="package-grid" variants={listVariants}>
-            {smallWorkOffers.map((work) => (
-              <SmallWorkCard
-                key={work.id}
-                work={work}
-                active={selectedWorkId === work.id}
-                onSelect={handleWorkSelect}
+            {professionalPackages.map((packageItem) => (
+              <BusinessPackageCard
+                key={packageItem.id}
+                packageItem={packageItem}
+                active={selectedPackageId === packageItem.id}
+                onSelect={setSelectedPackageId}
               />
             ))}
           </motion.div>
 
           <p className="section-footnote">
-            The listed prices are starting rates for simple briefs. A heavier
-            workload, more revisions, or last-minute delivery can move the
-            final quote.
+            Starting rates are based on common Indian business website pricing
+            patterns. Features like CMS, booking, SEO setup, and payments can
+            change the final quote.
           </p>
+        </motion.section>
+
+        <motion.section
+          className="panel"
+          id="process"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.18 }}
+          variants={sectionVariants}
+        >
+          <SectionHeading
+            eyebrow="Process"
+            title="Three simple steps from brief to launch."
+            copy="Pick a package, share the business details, and we shape the website around what the brand actually needs."
+          />
+
+          <motion.div className="process-grid" variants={listVariants}>
+            {processSteps.map((step, index) => (
+              <motion.article
+                className="process-card"
+                key={step.title}
+                variants={itemVariants}
+              >
+                <span className="process-card__index">0{index + 1}</span>
+                <h3>{step.title}</h3>
+                <p>{step.copy}</p>
+              </motion.article>
+            ))}
+          </motion.div>
         </motion.section>
 
         <motion.section
@@ -758,9 +841,9 @@ function SmallWorksPage() {
           variants={sectionVariants}
         >
           <SectionHeading
-            eyebrow="Request form"
-            title="Send the brief once and we will shape the quote around it."
-            copy="The form is tuned for quick work: a service pick, a few details, the deadline, and the output you want back."
+            eyebrow="Booking form"
+            title="Tell us what your business needs and we will shape the quote."
+            copy="This form is tuned for professional websites: business details, goals, pages, features, and the deadline all in one place."
           />
 
           <div className="request-grid">
@@ -773,56 +856,60 @@ function SmallWorksPage() {
               <div className="form-header">
                 <div>
                   <p className="form-label">Request details</p>
-                  <h3>Tell us what needs to be made.</h3>
+                  <h3>Tell us about the business website.</h3>
                 </div>
 
                 <div className="selected-package-card">
-                  <span>Selected work</span>
-                  <strong>{selectedWork.name}</strong>
-                  <small>{selectedWork.priceLabel}</small>
+                  <span>Selected package</span>
+                  <strong>{selectedPackage.name}</strong>
+                  <small>{selectedPackage.priceLabel}</small>
                 </div>
               </div>
 
               <input
                 type="hidden"
                 name="subject"
-                value={`Project Studio small work - ${selectedWork.name}`}
-              />
-              <input type="hidden" name="selectedWorkId" value={selectedWorkId} />
-              <input
-                type="hidden"
-                name="selectedWorkName"
-                value={selectedWork.name}
+                value={`Project Studio professional project - ${selectedPackage.name}`}
               />
               <input
                 type="hidden"
-                name="selectedWorkPriceLabel"
-                value={selectedWork.priceLabel}
+                name="selectedPackageId"
+                value={selectedPackageId}
               />
               <input
                 type="hidden"
-                name="selectedWorkEstimatedPrice"
+                name="selectedPackageName"
+                value={selectedPackage.name}
+              />
+              <input
+                type="hidden"
+                name="selectedPackagePriceLabel"
+                value={selectedPackage.priceLabel}
+              />
+              <input
+                type="hidden"
+                name="selectedPackageEstimatedPrice"
                 value={formatMoney(estimatedPrice)}
               />
               <input
                 type="hidden"
-                name="selectedWorkQuantity"
-                value={form.workCount}
+                name="selectedPackagePages"
+                value={form.pageCount}
               />
               <input
                 type="hidden"
-                name="selectedWorkSpeed"
-                value={form.deliverySpeed}
+                name="selectedBusinessType"
+                value={form.businessType}
               />
               <input
                 type="hidden"
-                name="selectedWorkOutput"
-                value={form.preferredOutput}
+                name="selectedGoal"
+                value={form.websiteGoal}
               />
               <input
                 type="hidden"
-                name="selectedWorkContentStatus"
-                value={form.contentStatus}
+                name="selectedFeatures"
+                value={form.selectedFeatures.join(", ")}
               />
               <input
                 type="hidden"
@@ -853,7 +940,7 @@ function SmallWorksPage() {
                 </label>
 
                 <label className="field">
-                  <span>College or business name</span>
+                  <span>Business name</span>
                   <input
                     type="text"
                     name="businessName"
@@ -861,7 +948,7 @@ function SmallWorksPage() {
                     onChange={(event) =>
                       updateField("businessName", event.target.value)
                     }
-                    placeholder="Institute, shop, or brand name"
+                    placeholder="Brand or company name"
                     required
                   />
                 </label>
@@ -895,27 +982,61 @@ function SmallWorksPage() {
                 </label>
 
                 <label className="field">
-                  <span>{selectedWork.quantityLabel}</span>
+                  <span>{selectedPackage.pageLabel}</span>
                   <input
                     type="number"
-                    name="workCount"
+                    name="pageCount"
                     min="1"
                     step="1"
-                    value={form.workCount}
+                    value={form.pageCount}
                     onChange={(event) =>
-                      updateField("workCount", event.target.value)
+                      updateField("pageCount", event.target.value)
                     }
                     required
                   />
                 </label>
 
                 <div className="field">
-                  <span>Quantity note</span>
+                  <span>Page note</span>
                   <div className="summary-note">
-                    <p>{selectedWork.quantityHint}</p>
+                    <p>{selectedPackage.pageHint}</p>
                   </div>
                 </div>
               </div>
+
+              <fieldset className="idea-mode">
+                <legend>Business type</legend>
+                <div className="radio-grid">
+                  {businessTypes.map((mode) => (
+                    <button
+                      key={mode.id}
+                      type="button"
+                      className={`radio-card ${form.businessType === mode.id ? "radio-card--active" : ""}`}
+                      onClick={() => updateField("businessType", mode.id)}
+                    >
+                      <strong>{mode.title}</strong>
+                      <span>{mode.copy}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
+
+              <fieldset className="idea-mode">
+                <legend>Website goal</legend>
+                <div className="radio-grid">
+                  {websiteGoals.map((mode) => (
+                    <button
+                      key={mode.id}
+                      type="button"
+                      className={`radio-card ${form.websiteGoal === mode.id ? "radio-card--active" : ""}`}
+                      onClick={() => updateField("websiteGoal", mode.id)}
+                    >
+                      <strong>{mode.title}</strong>
+                      <span>{mode.copy}</span>
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
 
               <fieldset className="idea-mode">
                 <legend>Content readiness</legend>
@@ -953,21 +1074,21 @@ function SmallWorksPage() {
 
               <div className="idea-panel">
                 <div className="idea-panel__header">
-                  <span>Preferred output</span>
+                  <span>Optional features</span>
                   <span className="idea-helper">
-                    Choose the file type you want back after delivery.
+                    Select the add-ons the business website should include.
                   </span>
                 </div>
 
-                <div className="idea-chips" aria-label="Preferred output options">
-                  {selectedWork.outputs.map((output) => (
+                <div className="idea-chips" aria-label="Feature options">
+                  {featureOptions.map((feature) => (
                     <button
                       type="button"
-                      key={output}
-                      className={`idea-chip ${form.preferredOutput === output ? "idea-chip--active" : ""}`}
-                      onClick={() => updateField("preferredOutput", output)}
+                      key={feature.id}
+                      className={`idea-chip ${form.selectedFeatures.includes(feature.id) ? "idea-chip--active" : ""}`}
+                      onClick={() => toggleFeature(feature.id)}
                     >
-                      {output}
+                      {feature.label}
                     </button>
                   ))}
                 </div>
@@ -978,7 +1099,7 @@ function SmallWorksPage() {
                     name="brief"
                     value={form.brief}
                     onChange={(event) => updateField("brief", event.target.value)}
-                    placeholder={getBriefPlaceholder(selectedWork.id)}
+                    placeholder={getBriefPlaceholder(form.businessType)}
                     rows="5"
                   />
                 </label>
@@ -990,7 +1111,7 @@ function SmallWorksPage() {
                   name="notes"
                   value={form.notes}
                   onChange={(event) => updateField("notes", event.target.value)}
-                  placeholder="Add brand notes, print instructions, or any extra instruction."
+                  placeholder="Add brand notes, launch details, or any special instructions."
                   rows="4"
                 />
               </label>
@@ -1004,7 +1125,7 @@ function SmallWorksPage() {
                   onChange={(event) =>
                     updateField("referenceLink", event.target.value)
                   }
-                  placeholder="Paste any reference URL here"
+                  placeholder="Paste a reference website or brand link"
                 />
               </label>
 
@@ -1013,17 +1134,17 @@ function SmallWorksPage() {
                   type="submit"
                   className="button button-primary button-submit"
                 >
-                  Send small-work request
+                  Book professional website build
                 </button>
                 <p className="form-note">
-                  This request goes to the same form inbox and then redirects to
-                  the shared thank-you page after submission.
+                  This request goes to the same inbox and then redirects to the
+                  shared thank-you page after submission.
                 </p>
               </div>
 
               <p className="privacy-note">
-                Built for students, creators, and small businesses that need a
-                fast quote for a short task.
+                Built for business owners who want a cleaner, stronger website
+                that feels professional from the first visit.
               </p>
             </motion.form>
 
@@ -1033,8 +1154,8 @@ function SmallWorksPage() {
 
               <div className="summary-card">
                 <div>
-                  <span>Work</span>
-                  <strong>{selectedWork.name}</strong>
+                  <span>Package</span>
+                  <strong>{selectedPackage.name}</strong>
                 </div>
                 <div>
                   <span>Client</span>
@@ -1057,20 +1178,39 @@ function SmallWorksPage() {
                   <strong>{formatDate(form.deadline)}</strong>
                 </div>
                 <div>
-                  <span>Speed</span>
+                  <span>Business type</span>
                   <strong>
-                    {form.deliverySpeed === "urgent" ? "Urgent" : "Standard"}
+                    {businessTypes.find((mode) => mode.id === form.businessType)
+                      ?.title ?? "Selected"}
                   </strong>
                 </div>
                 <div>
-                  <span>Output</span>
-                  <strong>{form.preferredOutput}</strong>
+                  <span>Goal</span>
+                  <strong>
+                    {websiteGoals.find((mode) => mode.id === form.websiteGoal)
+                      ?.title ?? "Selected"}
+                  </strong>
                 </div>
                 <div className="summary-card__wide">
                   <span>Content readiness</span>
                   <strong>
                     {contentModes.find((mode) => mode.id === form.contentStatus)
                       ?.title ?? "Ready"}
+                  </strong>
+                </div>
+                <div className="summary-card__wide">
+                  <span>Features</span>
+                  <strong>
+                    {form.selectedFeatures.length > 0
+                      ? form.selectedFeatures
+                          .map(
+                            (featureId) =>
+                              featureOptions.find((feature) => feature.id === featureId)
+                                ?.label,
+                          )
+                          .filter(Boolean)
+                          .join(", ")
+                      : "None selected"}
                   </strong>
                 </div>
                 <div className="summary-card__wide">
@@ -1086,16 +1226,16 @@ function SmallWorksPage() {
               <div className="summary-note">
                 <strong>Market-aware estimate</strong>
                 <p>
-                  This price is a starting quote for simple work. More slides,
-                  more pages, heavy content help, or urgent delivery can change
-                  the final amount.
+                  These are starting quotes based on current Indian business
+                  website ranges. More pages, booking or payment systems, CMS
+                  setup, and urgent delivery can change the final amount.
                 </p>
               </div>
 
               <div className="summary-chips">
-                <span>Quick tasks</span>
-                <span>Student-friendly</span>
-                <span>Market aligned</span>
+                <span>Business-ready</span>
+                <span>Lead-focused</span>
+                <span>Professional polish</span>
               </div>
             </motion.aside>
           </div>
@@ -1107,8 +1247,8 @@ function SmallWorksPage() {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <SmallWorksPage />
+    <ProfessionalProjectsPage />
   </StrictMode>,
 );
 
-export default SmallWorksPage;
+export default ProfessionalProjectsPage;

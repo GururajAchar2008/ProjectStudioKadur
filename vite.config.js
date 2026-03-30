@@ -14,6 +14,7 @@ export default defineConfig({
       input: {
         main: resolve(rootDir, 'index.html'),
         smallworks: resolve(rootDir, 'smallworks/index.html'),
+        professionalprojects: resolve(rootDir, 'professional-projects/index.html'),
         thankyou: resolve(rootDir, 'thankyou/index.html'),
       },
     },

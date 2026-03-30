@@ -11,6 +11,12 @@ const navItems = [
     type: "link",
     href: "smallworks/",
   },
+  {
+    id: "professional-projects",
+    label: "Professional projects",
+    type: "link",
+    href: "professional-projects/",
+  },
   { id: "process", label: "Process", type: "section" },
   { id: "request", label: "Request", type: "section" },
 ];
@@ -271,6 +277,14 @@ function resolveSmallWorksUrl() {
   return new URL("smallworks/", window.location.href).href;
 }
 
+function resolveProfessionalProjectsUrl() {
+  if (typeof window === "undefined") {
+    return "/professional-projects/";
+  }
+
+  return new URL("professional-projects/", window.location.href).href;
+}
+
 function SectionHeading({ eyebrow, title, copy }) {
   return (
     <div className="section-heading">
@@ -399,6 +413,7 @@ function App() {
   const today = new Date().toISOString().slice(0, 10);
   const thankYouUrl = resolveThankYouUrl();
   const smallWorksUrl = resolveSmallWorksUrl();
+  const professionalProjectsUrl = resolveProfessionalProjectsUrl();
 
   useEffect(() => {
     applyTheme(theme);
@@ -494,36 +509,6 @@ function App() {
           </span>
         </button>
 
-        <nav className="nav-links" aria-label="Primary">
-          {navItems.map((item) => (
-            item.type === "link" ? (
-              <a
-                key={item.id}
-                className="nav-link"
-                href={item.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item.label}
-              </a>
-            ) : (
-              <button
-                key={item.id}
-                type="button"
-                className="nav-link"
-                onClick={() => navigateToSection(item.id)}
-              >
-                {item.label}
-              </button>
-            )
-          ))}
-        </nav>
-
-        <ThemeToggle
-          theme={theme}
-          onToggle={() =>
-            setTheme((current) => (current === "dark" ? "light" : "dark"))
-          }
-        />
         <button
           type="button"
           className={`menu-toggle ${isMobileMenuOpen ? "menu-toggle--open" : ""}`}
@@ -666,6 +651,12 @@ function App() {
               </button>
               <a className="button button-secondary" href={smallWorksUrl}>
                 Small projects
+              </a>
+              <a
+                className="button button-secondary"
+                href={professionalProjectsUrl}
+              >
+                Professional projects
               </a>
             </div>
             <div className="hero-stats">

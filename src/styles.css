@@ -252,7 +252,7 @@ a {
 }
 
 .menu-toggle {
-  display: none;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -1441,6 +1441,10 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+}
+
+.thankyou-topbar .menu-toggle {
+  margin-left: auto;
 }
 
 .thankyou-main {
