@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(rootDir, 'index.html'),
+        cseprojects: resolve(rootDir, 'cse-projects/index.html'),
         smallworks: resolve(rootDir, 'smallworks/index.html'),
         professionalprojects: resolve(rootDir, 'professional-projects/index.html'),
         thankyou: resolve(rootDir, 'thankyou/index.html'),
