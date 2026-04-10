@@ -237,7 +237,7 @@ function applyTheme(theme) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
 
   if (themeColor) {
-    themeColor.setAttribute("content", theme === "dark" ? "#071019" : "#f5f8fc");
+    themeColor.setAttribute("content", theme === "dark" ? "#030303" : "#fafafa");
   }
 }
 
