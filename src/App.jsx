@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./hm-styles.css";
 
 const projectLogo = `${import.meta.env.BASE_URL}favicon.svg`;
@@ -121,6 +121,159 @@ function ServiceCard({ service, reducedMotion }) {
   );
 }
 
+function CodeScrambleBackground({ isHovered, reducedMotion }) {
+  const canvasRef = useRef(null);
+  const mouseRef = useRef({ x: null, y: null });
+
+  useEffect(() => {
+    if (!isHovered) {
+      mouseRef.current = { x: null, y: null };
+      return;
+    }
+    const handleMouseMove = (e) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [isHovered]);
+
+  useEffect(() => {
+    if (reducedMotion) return;
+    
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    const codeSnippet = `import numpy as np
+
+class NeuralNetwork:
+    def __init__(self):
+        np.random.seed(1)
+        self.weights = 2 * np.random.random((3, 1)) - 1
+
+    def sigmoid(self, x):
+        return 1 / (1 + np.exp(-x))
+
+    def think(self, inputs):
+        return self.sigmoid(np.dot(inputs, self.weights))
+`;
+    
+    let particles = [];
+    const fontSize = 14;
+    
+    const initParticles = () => {
+      particles = [];
+      const lines = codeSnippet.split('\n');
+      // Position roughly on the left side but nicely padded
+      let startY = Math.max(80, canvas.height / 3);
+      let startX = Math.max(20, canvas.width * 0.1);
+
+      ctx.font = `${fontSize}px 'IBM Plex Mono', monospace`;
+      
+      for (let i = 0; i < lines.length; i++) {
+        let currentX = startX;
+        const line = lines[i];
+        for (let j = 0; j < line.length; j++) {
+          const char = line[j];
+          // Use context measure text or fallback to generic mono width
+          const charWidth = ctx.measureText(char).width || 8.4;
+          particles.push({
+            char,
+            ox: currentX,
+            oy: startY + i * (fontSize * 1.5),
+            x: currentX,
+            y: startY + i * (fontSize * 1.5),
+            vx: 0,
+            vy: 0
+          });
+          currentX += charWidth;
+        }
+      }
+    };
+
+    const resize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+      initParticles();
+    };
+    
+    resize();
+    window.addEventListener('resize', resize);
+
+    const draw = () => {
+      animationFrameId = requestAnimationFrame(draw);
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const isLight = document.documentElement.dataset.theme === 'light';
+      ctx.fillStyle = isLight ? 'rgba(59, 130, 246, 0.6)' : 'rgba(139, 92, 246, 0.6)';
+      ctx.font = `${fontSize}px 'IBM Plex Mono', monospace`;
+      
+      const mouse = mouseRef.current;
+      const repelRadius = 120; // Scramble area
+
+      for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+
+        if (isHovered && mouse.x !== null) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < repelRadius) {
+            const force = (repelRadius - dist) / repelRadius;
+            p.vx += (dx / dist) * force * 5; // Strength of scatter push
+            p.vy += (dy / dist) * force * 5;
+          }
+        }
+
+        // Return to origin (spring)
+        p.vx += (p.ox - p.x) * 0.05;
+        p.vy += (p.oy - p.y) * 0.05;
+
+        // Friction
+        p.vx *= 0.85;
+        p.vy *= 0.85;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        ctx.fillText(p.char, p.x, p.y);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(draw);
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [isHovered, reducedMotion]);
+
+  return (
+    <canvas 
+      ref={canvasRef} 
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        opacity: isHovered ? 1 : 0,
+        transition: 'opacity 0.6s ease',
+        zIndex: 0
+      }}
+    />
+  );
+}
+
 function Hyperstage({ reducedMotion }) {
   if (reducedMotion) return <div className="hm-stage-static" />;
   
@@ -159,6 +312,7 @@ function Hyperstage({ reducedMotion }) {
 
 function App() {
   const reducedMotion = useReducedMotion();
+  const [isHeroHovered, setIsHeroHovered] = useState(false);
 
   useEffect(() => {
     document.title = "Project Studio | Premium Services";
@@ -176,7 +330,12 @@ function App() {
       </header>
 
       <main className="hm-main">
-        <section className="hm-hero">
+        <section 
+          className="hm-hero"
+          onMouseEnter={() => setIsHeroHovered(true)}
+          onMouseLeave={() => setIsHeroHovered(false)}
+        >
+          <CodeScrambleBackground isHovered={isHeroHovered} reducedMotion={reducedMotion} />
           <Hyperstage reducedMotion={reducedMotion} />
           
           <div className="hm-container">
@@ -206,6 +365,16 @@ function App() {
 
         <section className="hm-services">
           <div className="hm-container">
+            <div className="hm-scroll-indicator">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <span>Swipe to view more</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+
             <motion.div 
               className="hm-grid"
               variants={containerVariants}

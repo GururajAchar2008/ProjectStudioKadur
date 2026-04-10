@@ -431,4 +431,48 @@
   .hm-title br {
     display: none;
   }
+
+  /* Make grid horizontally scrollable on mobile */
+  .hm-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding-bottom: 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  .hm-grid::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+  .hm-grid > * {
+    flex: 0 0 85%;
+    scroll-snap-align: center;
+  }
+}
+
+.hm-scroll-indicator {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+  font-size: 0.8125rem;
+  font-family: 'IBM Plex Mono', monospace;
+  animation: scroll-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 768px) {
+  .hm-scroll-indicator {
+    display: flex;
+  }
 }
