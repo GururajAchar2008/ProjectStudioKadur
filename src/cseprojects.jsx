@@ -223,7 +223,10 @@ function applyTheme(theme) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
 
   if (themeColor) {
-    themeColor.setAttribute("content", theme === "dark" ? "#030303" : "#fafafa");
+    themeColor.setAttribute(
+      "content",
+      theme === "dark" ? "#030303" : "#fafafa",
+    );
   }
 }
 
@@ -571,7 +574,7 @@ function App() {
               </div>
 
               <nav className="mobile-menu__nav" aria-label="Mobile primary">
-                {navItems.map((item) => (
+                {navItems.map((item) =>
                   item.type === "link" ? (
                     <a
                       key={item.id}
@@ -590,8 +593,8 @@ function App() {
                     >
                       {item.label}
                     </button>
-                  )
-                ))}
+                  ),
+                )}
               </nav>
 
               <div className="mobile-menu__section">
@@ -1164,7 +1167,7 @@ function App() {
         </div>
 
         <div className="footer-links">
-          {navItems.map((item) => (
+          {navItems.map((item) =>
             item.type === "link" ? (
               <a key={item.id} className="footer-link" href={item.href}>
                 {item.label}
@@ -1178,8 +1181,8 @@ function App() {
               >
                 {item.label}
               </button>
-            )
-          ))}
+            ),
+          )}
         </div>
       </footer>
     </div>

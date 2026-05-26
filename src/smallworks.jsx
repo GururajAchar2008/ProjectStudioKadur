@@ -82,11 +82,7 @@ const smallWorkOffers = [
     extraUnitPrice: 200,
     rushFee: 250,
     outputs: ["PNG + PDF", "PNG only", "PDF only"],
-    bullets: [
-      "1 poster or flyer",
-      "PNG + PDF delivery",
-      "Print-ready sizing",
-    ],
+    bullets: ["1 poster or flyer", "PNG + PDF delivery", "Print-ready sizing"],
     tone: "#0f766e",
   },
   {
@@ -116,8 +112,7 @@ const smallWorkOffers = [
     name: "Brochure / Menu",
     priceLabel: "From Rs. 1,499",
     badge: "Multi-page",
-    summary:
-      "Short brochures, mini catalogues, menus, and profile sheets.",
+    summary: "Short brochures, mini catalogues, menus, and profile sheets.",
     description:
       "Best for 2 to 4 pages with clean layout and editable source files.",
     timeline: "1 to 3 days",
@@ -140,8 +135,7 @@ const smallWorkOffers = [
     badge: "Quick asset",
     summary:
       "YouTube thumbnails, webinar banners, cover images, and simple hero graphics.",
-    description:
-      "A focused one-piece design built to catch attention fast.",
+    description: "A focused one-piece design built to catch attention fast.",
     timeline: "Same day",
     support: "1 revision round",
     quantityLabel: "Creatives",
@@ -231,7 +225,10 @@ function applyTheme(theme) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
 
   if (themeColor) {
-    themeColor.setAttribute("content", theme === "dark" ? "#030303" : "#fafafa");
+    themeColor.setAttribute(
+      "content",
+      theme === "dark" ? "#030303" : "#fafafa",
+    );
   }
 }
 
@@ -341,7 +338,9 @@ function SmallWorkCard({ work, active, onSelect }) {
       <div className="package-card__top">
         <div className="package-card__top-left">
           <span className="package-card__badge">{work.badge}</span>
-          {active ? <span className="package-card__selected">Selected</span> : null}
+          {active ? (
+            <span className="package-card__selected">Selected</span>
+          ) : null}
         </div>
         <div className="package-card__price">
           <span>Starting rate</span>
@@ -426,10 +425,16 @@ function SmallWorksPage() {
   const thankYouUrl = resolveThankYouUrl();
   const professionalProjectsUrl = resolveProfessionalProjectsUrl();
   const selectedWork =
-    smallWorkOffers.find((work) => work.id === selectedWorkId) ?? smallWorkOffers[0];
+    smallWorkOffers.find((work) => work.id === selectedWorkId) ??
+    smallWorkOffers[0];
   const estimatedPrice = estimatePrice(selectedWork, form);
   const headerItems = [
-    { id: "project-builds", label: "Project builds", type: "link", href: homeUrl },
+    {
+      id: "project-builds",
+      label: "Project builds",
+      type: "link",
+      href: homeUrl,
+    },
     {
       id: "professional-projects",
       label: "Professional projects",
@@ -519,7 +524,12 @@ function SmallWorksPage() {
 
       <header className="topbar">
         <a className="brand" href={homeUrl}>
-          <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
+          <img
+            className="brand-mark"
+            src={projectLogo}
+            alt=""
+            aria-hidden="true"
+          />
           <span className="brand-copy">
             <strong>Project Studio</strong>
             <small>Small freelance works</small>
@@ -529,7 +539,9 @@ function SmallWorksPage() {
         <button
           type="button"
           className={`menu-toggle ${isMenuOpen ? "menu-toggle--open" : ""}`}
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={isMenuOpen}
           aria-controls="small-works-menu"
           onClick={() => setIsMenuOpen((current) => !current)}
@@ -542,7 +554,13 @@ function SmallWorksPage() {
 
       <AnimatePresence>
         {isMenuOpen ? (
-          <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
             <button
               type="button"
               className="mobile-menu__backdrop"
@@ -573,8 +591,11 @@ function SmallWorksPage() {
                 </button>
               </div>
 
-              <nav className="mobile-menu__nav" aria-label="Small works primary">
-                {headerItems.map((item) => (
+              <nav
+                className="mobile-menu__nav"
+                aria-label="Small works primary"
+              >
+                {headerItems.map((item) =>
                   item.type === "link" ? (
                     <a
                       key={item.id}
@@ -593,8 +614,8 @@ function SmallWorksPage() {
                     >
                       {item.label}
                     </button>
-                  )
-                ))}
+                  ),
+                )}
               </nav>
 
               <div className="mobile-menu__section">
@@ -602,7 +623,9 @@ function SmallWorksPage() {
                 <ThemeToggle
                   theme={theme}
                   onToggle={() =>
-                    setTheme((current) => (current === "dark" ? "light" : "dark"))
+                    setTheme((current) =>
+                      current === "dark" ? "light" : "dark",
+                    )
                   }
                 />
               </div>
@@ -610,7 +633,8 @@ function SmallWorksPage() {
               <div className="mobile-menu__section mobile-menu__section--note">
                 <span className="mobile-menu__eyebrow">Quick note</span>
                 <p>
-                  The quick-work links and theme switch live in the drawer so the top bar stays clean on every screen.
+                  The quick-work links and theme switch live in the drawer so
+                  the top bar stays clean on every screen.
                 </p>
               </div>
             </motion.aside>
@@ -744,8 +768,8 @@ function SmallWorksPage() {
 
           <p className="section-footnote">
             The listed prices are starting rates for simple briefs. A heavier
-            workload, more revisions, or last-minute delivery can move the
-            final quote.
+            workload, more revisions, or last-minute delivery can move the final
+            quote.
           </p>
         </motion.section>
 
@@ -788,7 +812,11 @@ function SmallWorksPage() {
                 name="subject"
                 value={`Project Studio small work - ${selectedWork.name}`}
               />
-              <input type="hidden" name="selectedWorkId" value={selectedWorkId} />
+              <input
+                type="hidden"
+                name="selectedWorkId"
+                value={selectedWorkId}
+              />
               <input
                 type="hidden"
                 name="selectedWorkName"
@@ -824,11 +852,7 @@ function SmallWorksPage() {
                 name="selectedWorkContentStatus"
                 value={form.contentStatus}
               />
-              <input
-                type="hidden"
-                name="redirect"
-                value={thankYouUrl}
-              />
+              <input type="hidden" name="redirect" value={thankYouUrl} />
               <input
                 type="checkbox"
                 name="botcheck"
@@ -959,7 +983,10 @@ function SmallWorksPage() {
                   </span>
                 </div>
 
-                <div className="idea-chips" aria-label="Preferred output options">
+                <div
+                  className="idea-chips"
+                  aria-label="Preferred output options"
+                >
                   {selectedWork.outputs.map((output) => (
                     <button
                       type="button"
@@ -977,7 +1004,9 @@ function SmallWorksPage() {
                   <textarea
                     name="brief"
                     value={form.brief}
-                    onChange={(event) => updateField("brief", event.target.value)}
+                    onChange={(event) =>
+                      updateField("brief", event.target.value)
+                    }
                     placeholder={getBriefPlaceholder(selectedWork.id)}
                     rows="5"
                   />

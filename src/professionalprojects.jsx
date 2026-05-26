@@ -237,7 +237,10 @@ function applyTheme(theme) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
 
   if (themeColor) {
-    themeColor.setAttribute("content", theme === "dark" ? "#030303" : "#fafafa");
+    themeColor.setAttribute(
+      "content",
+      theme === "dark" ? "#030303" : "#fafafa",
+    );
   }
 }
 
@@ -347,7 +350,9 @@ function BusinessPackageCard({ packageItem, active, onSelect }) {
       <div className="package-card__top">
         <div className="package-card__top-left">
           <span className="package-card__badge">{packageItem.badge}</span>
-          {active ? <span className="package-card__selected">Selected</span> : null}
+          {active ? (
+            <span className="package-card__selected">Selected</span>
+          ) : null}
         </div>
         <div className="package-card__price">
           <span>Starting rate</span>
@@ -398,11 +403,18 @@ function estimatePrice(packageItem, form) {
   );
   const extraPages = Math.max(0, pageCount - packageItem.includedPages);
   const extraFeatures = featureOptions.reduce((sum, feature) => {
-    return form.selectedFeatures.includes(feature.id) ? sum + feature.price : sum;
+    return form.selectedFeatures.includes(feature.id)
+      ? sum + feature.price
+      : sum;
   }, 0);
   const rushFee = form.deliverySpeed === "priority" ? packageItem.rushFee : 0;
 
-  return packageItem.basePrice + extraPages * packageItem.extraPagePrice + extraFeatures + rushFee;
+  return (
+    packageItem.basePrice +
+    extraPages * packageItem.extraPagePrice +
+    extraFeatures +
+    rushFee
+  );
 }
 
 function formDefaults(packageItem) {
@@ -437,8 +449,18 @@ function ProfessionalProjectsPage() {
     professionalPackages[0];
   const estimatedPrice = estimatePrice(selectedPackage, form);
   const headerItems = [
-    { id: "project-builds", label: "Project builds", type: "link", href: homeUrl },
-    { id: "small-works", label: "Small works", type: "link", href: smallWorksUrl },
+    {
+      id: "project-builds",
+      label: "Project builds",
+      type: "link",
+      href: homeUrl,
+    },
+    {
+      id: "small-works",
+      label: "Small works",
+      type: "link",
+      href: smallWorksUrl,
+    },
     { id: "packages", label: "Packages", type: "section" },
     { id: "process", label: "Process", type: "section" },
     { id: "request", label: "Request", type: "section" },
@@ -531,7 +553,12 @@ function ProfessionalProjectsPage() {
 
       <header className="topbar">
         <a className="brand" href={homeUrl}>
-          <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
+          <img
+            className="brand-mark"
+            src={projectLogo}
+            alt=""
+            aria-hidden="true"
+          />
           <span className="brand-copy">
             <strong>Project Studio</strong>
             <small>Professional projects</small>
@@ -541,7 +568,9 @@ function ProfessionalProjectsPage() {
         <button
           type="button"
           className={`menu-toggle ${isMenuOpen ? "menu-toggle--open" : ""}`}
-          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={isMenuOpen}
           aria-controls="professional-projects-menu"
           onClick={() => setIsMenuOpen((current) => !current)}
@@ -554,7 +583,13 @@ function ProfessionalProjectsPage() {
 
       <AnimatePresence>
         {isMenuOpen ? (
-          <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
             <button
               type="button"
               className="mobile-menu__backdrop"
@@ -585,8 +620,11 @@ function ProfessionalProjectsPage() {
                 </button>
               </div>
 
-              <nav className="mobile-menu__nav" aria-label="Professional projects primary">
-                {headerItems.map((item) => (
+              <nav
+                className="mobile-menu__nav"
+                aria-label="Professional projects primary"
+              >
+                {headerItems.map((item) =>
                   item.type === "link" ? (
                     <a
                       key={item.id}
@@ -605,8 +643,8 @@ function ProfessionalProjectsPage() {
                     >
                       {item.label}
                     </button>
-                  )
-                ))}
+                  ),
+                )}
               </nav>
 
               <div className="mobile-menu__section">
@@ -614,7 +652,9 @@ function ProfessionalProjectsPage() {
                 <ThemeToggle
                   theme={theme}
                   onToggle={() =>
-                    setTheme((current) => (current === "dark" ? "light" : "dark"))
+                    setTheme((current) =>
+                      current === "dark" ? "light" : "dark",
+                    )
                   }
                 />
               </div>
@@ -622,7 +662,8 @@ function ProfessionalProjectsPage() {
               <div className="mobile-menu__section mobile-menu__section--note">
                 <span className="mobile-menu__eyebrow">Quick note</span>
                 <p>
-                  The business links and theme switch now live in the drawer so the top bar stays minimal on every screen.
+                  The business links and theme switch now live in the drawer so
+                  the top bar stays minimal on every screen.
                 </p>
               </div>
             </motion.aside>
@@ -694,7 +735,9 @@ function ProfessionalProjectsPage() {
             >
               <div className="hero-visual__top">
                 <span className="hero-visual__status">Live quote preview</span>
-                <span className="hero-visual__badge">{selectedPackage.badge}</span>
+                <span className="hero-visual__badge">
+                  {selectedPackage.badge}
+                </span>
               </div>
               <h2>{selectedPackage.name}</h2>
               <div className="hero-visual__price">
@@ -911,11 +954,7 @@ function ProfessionalProjectsPage() {
                 name="selectedFeatures"
                 value={form.selectedFeatures.join(", ")}
               />
-              <input
-                type="hidden"
-                name="redirect"
-                value={thankYouUrl}
-              />
+              <input type="hidden" name="redirect" value={thankYouUrl} />
               <input
                 type="checkbox"
                 name="botcheck"
@@ -1098,7 +1137,9 @@ function ProfessionalProjectsPage() {
                   <textarea
                     name="brief"
                     value={form.brief}
-                    onChange={(event) => updateField("brief", event.target.value)}
+                    onChange={(event) =>
+                      updateField("brief", event.target.value)
+                    }
                     placeholder={getBriefPlaceholder(form.businessType)}
                     rows="5"
                   />
@@ -1205,8 +1246,9 @@ function ProfessionalProjectsPage() {
                       ? form.selectedFeatures
                           .map(
                             (featureId) =>
-                              featureOptions.find((feature) => feature.id === featureId)
-                                ?.label,
+                              featureOptions.find(
+                                (feature) => feature.id === featureId,
+                              )?.label,
                           )
                           .filter(Boolean)
                           .join(", ")

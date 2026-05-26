@@ -1,29 +1,29 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { StrictMode, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import './styles.css';
+import { AnimatePresence, motion } from "framer-motion";
+import { StrictMode, useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import "./styles.css";
 
-const projectLogo = '../favicon.svg';
+const projectLogo = "../favicon.svg";
 
 const receiptCards = [
   {
-    title: 'Details captured',
-    copy: 'Your selected service, timeline, and contact details were sent with the request.',
+    title: "Details captured",
+    copy: "Your selected service, timeline, and contact details were sent with the request.",
   },
   {
-    title: 'Brief recorded',
-    copy: 'The project direction, feature notes, and extra details are ready for review.',
+    title: "Brief recorded",
+    copy: "The project direction, feature notes, and extra details are ready for review.",
   },
   {
-    title: 'Contact ready',
-    copy: 'We can follow up using the contact information you shared in the form.',
+    title: "Contact ready",
+    copy: "We can follow up using the contact information you shared in the form.",
   },
 ];
 
 const nextSteps = [
-  'We review the selected service and submission details.',
-  'We check the scope against your deadline and notes.',
-  'We reach back out using the contact details you entered.',
+  "We review the selected service and submission details.",
+  "We check the scope against your deadline and notes.",
+  "We reach back out using the contact details you entered.",
 ];
 
 const sectionVariants = {
@@ -58,21 +58,21 @@ const itemVariants = {
 };
 
 function resolveInitialTheme() {
-  if (typeof window === 'undefined') {
-    return 'light';
+  if (typeof window === "undefined") {
+    return "light";
   }
 
   try {
-    const stored = window.localStorage.getItem('project-studio-theme');
+    const stored = window.localStorage.getItem("project-studio-theme");
 
-    if (stored === 'light' || stored === 'dark') {
+    if (stored === "light" || stored === "dark") {
       return stored;
     }
   } catch (error) {
     // Some browsers block localStorage in private or hardened modes.
   }
 
-  return 'light';
+  return "light";
 }
 
 function applyTheme(theme) {
@@ -82,7 +82,10 @@ function applyTheme(theme) {
   const themeColor = document.querySelector('meta[name="theme-color"]');
 
   if (themeColor) {
-    themeColor.setAttribute('content', theme === 'dark' ? '#030303' : '#fafafa');
+    themeColor.setAttribute(
+      "content",
+      theme === "dark" ? "#030303" : "#fafafa",
+    );
   }
 }
 
@@ -90,24 +93,28 @@ function ThankYouPage() {
   const [theme, setTheme] = useState(resolveInitialTheme());
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuItems = [
-    { id: 'home', label: 'Project builds', href: '../' },
-    { id: 'request', label: 'Submit another request', href: '../#request' },
-    { id: 'smallworks', label: 'Small works', href: '../smallworks/' },
-    { id: 'professional-projects', label: 'Professional projects', href: '../professional-projects/' },
+    { id: "home", label: "Project builds", href: "../" },
+    { id: "request", label: "Submit another request", href: "../#request" },
+    { id: "smallworks", label: "Small works", href: "../smallworks/" },
+    {
+      id: "professional-projects",
+      label: "Professional projects",
+      href: "../professional-projects/",
+    },
   ];
 
   useEffect(() => {
     applyTheme(theme);
 
     try {
-      window.localStorage.setItem('project-studio-theme', theme);
+      window.localStorage.setItem("project-studio-theme", theme);
     } catch (error) {
       // Ignore storage failures and keep the page usable.
     }
   }, [theme]);
 
   useEffect(() => {
-    document.title = 'Thank you | Project Studio';
+    document.title = "Thank you | Project Studio";
   }, []);
 
   useEffect(() => {
@@ -116,21 +123,21 @@ function ThankYouPage() {
     }
 
     const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsMenuOpen(false);
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMenuOpen]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = isMenuOpen ? 'hidden' : previousOverflow;
+    document.body.style.overflow = isMenuOpen ? "hidden" : previousOverflow;
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -145,7 +152,12 @@ function ThankYouPage() {
 
       <header className="thankyou-topbar">
         <a className="brand" href="../">
-          <img className="brand-mark" src={projectLogo} alt="" aria-hidden="true" />
+          <img
+            className="brand-mark"
+            src={projectLogo}
+            alt=""
+            aria-hidden="true"
+          />
           <span className="brand-copy">
             <strong>Project Studio</strong>
             <small>CSE final-year builds</small>
@@ -157,7 +169,9 @@ function ThankYouPage() {
         <button
           type="button"
           className={`menu-toggle ${isMenuOpen ? "menu-toggle--open" : ""}`}
-          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={
+            isMenuOpen ? "Close navigation menu" : "Open navigation menu"
+          }
           aria-expanded={isMenuOpen}
           aria-controls="thankyou-menu"
           onClick={() => setIsMenuOpen((current) => !current)}
@@ -170,7 +184,13 @@ function ThankYouPage() {
 
       <AnimatePresence>
         {isMenuOpen ? (
-          <motion.div className="mobile-menu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+          <motion.div
+            className="mobile-menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
             <button
               type="button"
               className="mobile-menu__backdrop"
@@ -201,7 +221,10 @@ function ThankYouPage() {
                 </button>
               </div>
 
-              <nav className="mobile-menu__nav" aria-label="Thank you page primary">
+              <nav
+                className="mobile-menu__nav"
+                aria-label="Thank you page primary"
+              >
                 {menuItems.map((item) => (
                   <a
                     key={item.id}
@@ -219,12 +242,18 @@ function ThankYouPage() {
                 <button
                   type="button"
                   className="theme-toggle"
-                  aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-                  onClick={() => setTheme((current) => (current === 'dark' ? 'light' : 'dark'))}
+                  aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+                  onClick={() =>
+                    setTheme((current) =>
+                      current === "dark" ? "light" : "dark",
+                    )
+                  }
                 >
                   <span className="theme-toggle__label">Light</span>
                   <span className="theme-toggle__track">
-                    <span className={`theme-toggle__thumb theme-toggle__thumb--${theme}`} />
+                    <span
+                      className={`theme-toggle__thumb theme-toggle__thumb--${theme}`}
+                    />
                   </span>
                   <span className="theme-toggle__label">Dark</span>
                 </button>
@@ -232,7 +261,10 @@ function ThankYouPage() {
 
               <div className="mobile-menu__section mobile-menu__section--note">
                 <span className="mobile-menu__eyebrow">Quick note</span>
-                <p>Use the drawer to jump back to the main site or switch the look without leaving this page.</p>
+                <p>
+                  Use the drawer to jump back to the main site or switch the
+                  look without leaving this page.
+                </p>
               </div>
             </motion.aside>
           </motion.div>
@@ -247,7 +279,9 @@ function ThankYouPage() {
           variants={sectionVariants}
         >
           <div className="thankyou-copy">
-            <span className="eyebrow eyebrow--hero">Web3Forms handoff complete</span>
+            <span className="eyebrow eyebrow--hero">
+              Web3Forms handoff complete
+            </span>
             <h1>Thanks. Your request is in.</h1>
             <p>
               We’ve received the service, timeline, contact details, and idea
@@ -273,7 +307,11 @@ function ThankYouPage() {
           <div className="thankyou-side">
             <motion.div className="thankyou-stack" variants={listVariants}>
               {receiptCards.map((card) => (
-                <motion.article className="thankyou-receipt" key={card.title} variants={itemVariants}>
+                <motion.article
+                  className="thankyou-receipt"
+                  key={card.title}
+                  variants={itemVariants}
+                >
                   <span>{card.title}</span>
                   <p>{card.copy}</p>
                 </motion.article>
@@ -295,7 +333,7 @@ function ThankYouPage() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThankYouPage />
   </StrictMode>,

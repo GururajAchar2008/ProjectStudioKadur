@@ -1,0 +1,146 @@
+@import url("./About.css");
+
+.contact-ambient-a {
+  top: 30px;
+  right: -60px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.18);
+}
+
+.contact-ambient-b {
+  bottom: -80px;
+  left: -40px;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.14);
+}
+
+.contact-action-card,
+.contact-checklist-card {
+  min-height: 100%;
+}
+
+.contact-team--top {
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.team-card {
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--surface-strong), var(--surface));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.team-card h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.team-role {
+  margin: 8px 0 0;
+  color: var(--text-soft);
+  font-size: 0.98rem;
+}
+
+.team-contact-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.team-contact-link {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.team-contact-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+.team-contact-link span {
+  color: var(--text-faint);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.team-contact-link strong {
+  font-weight: 600;
+  color: var(--text);
+  word-break: break-word;
+}
+
+.route-list {
+  margin-top: 18px;
+}
+
+.route-card {
+  display: block;
+  padding: 18px;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.route-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  background: var(--surface-strong);
+}
+
+.route-card span {
+  display: block;
+  color: var(--text);
+}
+
+.checklist-list {
+  margin: 18px 0 0;
+  padding-left: 20px;
+  color: var(--text-soft);
+}
+
+.checklist-list li + li {
+  margin-top: 10px;
+}
+
+.contact-note {
+  margin-top: 16px;
+}
+
+.support-card--accent {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.12), var(--surface));
+}
+
+.contact-cta {
+  margin-bottom: 12px;
+}
+
+@media (max-width: 980px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

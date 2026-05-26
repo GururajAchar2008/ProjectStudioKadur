@@ -8,7 +8,7 @@ const rootDir = fileURLToPath(new URL('.', import.meta.url));
 export default defineConfig({
   // Relative paths keep GitHub Pages deployments portable.
   base: './',
-  plugins: [react()],
+  plugins: [react(), ],
   build: {
     rollupOptions: {
       input: {
