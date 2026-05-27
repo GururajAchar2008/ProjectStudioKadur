@@ -130,7 +130,7 @@ export const Contact = () => {
             <span className="hm-brand-text">Project Studio</span>
           </Link>
           <nav className="hm-nav-links" aria-label="Primary">
-            <NavContent name="Home" link="/" />
+            <NavContent name="Home" link="/home" />
             <NavContent name="About" link="/about" />
           </nav>
         </div>
