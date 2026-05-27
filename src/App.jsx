@@ -476,9 +476,11 @@ function HomePage() {
 function App() {
   return (
     <Routes>
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/" element={<HomePage />} />
+      <Route path="/home" element={<Navigate to="/" replace />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
