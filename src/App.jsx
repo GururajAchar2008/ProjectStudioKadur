@@ -25,7 +25,7 @@ const services = [
     alt: "Preview of a CSE project dashboard",
     accent: "rgba(59, 130, 246, 0.5)", // Blue
     accentSolid: "#3b82f6",
-    chips: ["React", "Node", "MySQL"],
+    chips: ["React", "Flask", "MySQL"],
   },
   {
     id: "smallworks",
