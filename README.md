@@ -1,6 +1,6 @@
 # Project Studio
 
-Project Studio is a multi-page React + Vite website for three kinds of services:
+Project Studio Kaduris a multi-page React + Vite website for three kinds of services:
 
 - CSE final-year project builds
 - Small creative works
@@ -94,17 +94,17 @@ It works like a service menu. Visitors choose a service page, compare the packag
 
 ## Pricing Structure
 
-The pricing in Project Studio is split into three clear models.
+The pricing in Project Studio Kaduris split into three clear models.
 
 ### 1. CSE Projects pricing
 
 CSE Projects use fixed package pricing. The user picks one package, and that choice is carried forward into the form.
 
-| Package | Price | Best for | What is included | Timeline | Support |
-| --- | --- | --- | --- | --- | --- |
-| Starter | Rs. 3,400 | Simple mini projects and clean submissions | Responsive UI structure, project roadmap guidance, submission checklist | 5 to 7 days | 1 revision round |
-| Builder Plus | Rs. 5,299 | Polished demos and a stronger project flow | Frontend + backend planning, database-friendly structure, presentation-ready screens | 7 to 12 days | 2 revision rounds |
-| Signature Builder | Rs. 6,300 | Premium showcase projects | Luxury UI motion, deployment guidance, documentation polish | 12 to 18 days | Priority support |
+| Package           | Price     | Best for                                   | What is included                                                                     | Timeline      | Support           |
+| ----------------- | --------- | ------------------------------------------ | ------------------------------------------------------------------------------------ | ------------- | ----------------- |
+| Starter           | Rs. 3,400 | Simple mini projects and clean submissions | Responsive UI structure, project roadmap guidance, submission checklist              | 5 to 7 days   | 1 revision round  |
+| Builder Plus      | Rs. 5,299 | Polished demos and a stronger project flow | Frontend + backend planning, database-friendly structure, presentation-ready screens | 7 to 12 days  | 2 revision rounds |
+| Signature Builder | Rs. 6,300 | Premium showcase projects                  | Luxury UI motion, deployment guidance, documentation polish                          | 12 to 18 days | Priority support  |
 
 Notes:
 
@@ -122,14 +122,14 @@ Formula:
 
 The base price covers a default quantity, and the price increases only if the user asks for more work or urgent delivery.
 
-| Service | Starting price | Included quantity | Extra unit price | Rush fee | Turnaround |
-| --- | --- | --- | --- | --- | --- |
-| PPT Making | Rs. 699 | 10 slides | Rs. 60 per extra slide | Rs. 300 | Same day to 24 hours |
-| Poster / Flyer | Rs. 599 | 1 design | Rs. 200 per extra design | Rs. 250 | Same day to 2 days |
-| Social Post | Rs. 299 | 1 post | Rs. 120 per extra post | Rs. 150 | Same day |
-| Brochure / Menu | Rs. 1,499 | 2 pages | Rs. 300 per extra page | Rs. 350 | 1 to 3 days |
-| Thumbnail / Banner | Rs. 349 | 1 creative | Rs. 100 per extra creative | Rs. 100 | Same day |
-| Formatting / Cleanup | Rs. 249 | 1 file | Rs. 50 per extra file | Rs. 100 | Within 24 hours |
+| Service              | Starting price | Included quantity | Extra unit price           | Rush fee | Turnaround           |
+| -------------------- | -------------- | ----------------- | -------------------------- | -------- | -------------------- |
+| PPT Making           | Rs. 699        | 10 slides         | Rs. 60 per extra slide     | Rs. 300  | Same day to 24 hours |
+| Poster / Flyer       | Rs. 599        | 1 design          | Rs. 200 per extra design   | Rs. 250  | Same day to 2 days   |
+| Social Post          | Rs. 299        | 1 post            | Rs. 120 per extra post     | Rs. 150  | Same day             |
+| Brochure / Menu      | Rs. 1,499      | 2 pages           | Rs. 300 per extra page     | Rs. 350  | 1 to 3 days          |
+| Thumbnail / Banner   | Rs. 349        | 1 creative        | Rs. 100 per extra creative | Rs. 100  | Same day             |
+| Formatting / Cleanup | Rs. 249        | 1 file            | Rs. 50 per extra file      | Rs. 100  | Within 24 hours      |
 
 Output options are also part of the flow:
 
@@ -150,23 +150,23 @@ Formula:
 
 The live quote changes as the user edits the page count, chooses features, or switches to priority delivery.
 
-| Package | Starting rate | Included pages | Extra page price | Rush fee | Timeline |
-| --- | --- | --- | --- | --- | --- |
-| Business Launch | From Rs. 19,999 | 5 pages | Rs. 2,500 per extra page | Rs. 4,000 | 7 to 10 days |
-| Growth Site | From Rs. 34,999 | 8 pages | Rs. 3,000 per extra page | Rs. 6,000 | 10 to 15 days |
-| Signature Business | From Rs. 59,999 | 12 pages | Rs. 4,000 per extra page | Rs. 8,000 | 15 to 25 days |
+| Package            | Starting rate   | Included pages | Extra page price         | Rush fee  | Timeline      |
+| ------------------ | --------------- | -------------- | ------------------------ | --------- | ------------- |
+| Business Launch    | From Rs. 19,999 | 5 pages        | Rs. 2,500 per extra page | Rs. 4,000 | 7 to 10 days  |
+| Growth Site        | From Rs. 34,999 | 8 pages        | Rs. 3,000 per extra page | Rs. 6,000 | 10 to 15 days |
+| Signature Business | From Rs. 59,999 | 12 pages       | Rs. 4,000 per extra page | Rs. 8,000 | 15 to 25 days |
 
 Optional add-ons:
 
-| Add-on | Price |
-| --- | --- |
-| WhatsApp CTA | Rs. 1,500 |
-| Google Maps | Rs. 1,000 |
-| SEO basics | Rs. 4,500 |
-| CMS / blog | Rs. 6,500 |
+| Add-on         | Price     |
+| -------------- | --------- |
+| WhatsApp CTA   | Rs. 1,500 |
+| Google Maps    | Rs. 1,000 |
+| SEO basics     | Rs. 4,500 |
+| CMS / blog     | Rs. 6,500 |
 | Booking system | Rs. 5,000 |
-| Payments | Rs. 9,000 |
-| Analytics | Rs. 2,000 |
+| Payments       | Rs. 9,000 |
+| Analytics      | Rs. 2,000 |
 
 ## Form Submission Flow
 
@@ -257,4 +257,3 @@ This project is already configured for GitHub Pages using relative paths.
 - `src/professionalprojects.jsx` - Business website packages and quote builder
 - `src/thankyou.jsx` - Submission confirmation page
 - `public/project-previews/` - Preview images used across the site
-

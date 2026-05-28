@@ -912,7 +912,7 @@ function ProfessionalProjectsPage() {
               <input
                 type="hidden"
                 name="subject"
-                value={`Project Studio professional project - ${selectedPackage.name}`}
+                value={`Project Studio Kadurprofessional project - ${selectedPackage.name}`}
               />
               <input
                 type="hidden"

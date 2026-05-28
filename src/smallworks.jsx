@@ -810,7 +810,7 @@ function SmallWorksPage() {
               <input
                 type="hidden"
                 name="subject"
-                value={`Project Studio small work - ${selectedWork.name}`}
+                value={`Project Studio Kadursmall work - ${selectedWork.name}`}
               />
               <input
                 type="hidden"

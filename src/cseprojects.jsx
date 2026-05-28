@@ -875,7 +875,7 @@ function App() {
               <input
                 type="hidden"
                 name="subject"
-                value={`Project Studio request - ${activePackage.name}`}
+                value={`Project Studio Kadurrequest - ${activePackage.name}`}
               />
               <input
                 type="hidden"

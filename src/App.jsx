@@ -16,7 +16,7 @@ const services = [
     id: "cse-projects",
     title: "CSE Projects",
     headline:
-      "Final-year project builds with the original Project Studio flow.",
+      "Final-year project builds with the original Project Studio Kadurflow.",
     copy: "Browse sample CSE projects, compare packages, and open the dedicated request page for diploma and engineering builds.",
     href: "cse-projects/",
     cta: "Open CSE Projects",
@@ -350,7 +350,7 @@ function HomePage() {
   const [isHeroHovered, setIsHeroHovered] = useState(false);
 
   useEffect(() => {
-    document.title = "Project Studio | Premium Services";
+    document.title = "Project Studio Kadur| Premium Services";
   }, []);
 
   return (

@@ -124,7 +124,7 @@ export const Contact = () => {
           <Link to="/" className="hm-brand contact-brand">
             <img
               src={projectLogo}
-              alt="Project Studio logo"
+              alt="Project Studio Kadurlogo"
               className="hm-logo"
             />
             <span className="hm-brand-text">Project Studio</span>
@@ -319,8 +319,9 @@ export const Contact = () => {
             <p className="page-kicker">Ready to continue?</p>
             <h2>Pick a route and keep the request moving.</h2>
             <p>
-              Every page in Project Studio is built to push the user toward the
-              next clear step, and the contact page follows the same pattern.
+              Every page in Project Studio Kaduris built to push the user toward
+              the next clear step, and the contact page follows the same
+              pattern.
             </p>
           </div>
           <div className="page-hero-actions">

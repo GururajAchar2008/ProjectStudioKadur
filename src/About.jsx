@@ -64,7 +64,7 @@ const About = () => {
           <Link to="/" className="hm-brand about-brand">
             <img
               src={projectLogo}
-              alt="Project Studio logo"
+              alt="Project Studio Kadurlogo"
               className="hm-logo"
             />
             <span className="hm-brand-text">Project Studio</span>
@@ -88,10 +88,10 @@ const About = () => {
             Built to keep student projects sharp and client work organized.
           </h1>
           <p className="page-intro">
-            Project Studio is a multi-page React + Vite experience for three
-            kinds of work: CSE final-year project builds, small creative tasks,
-            and professional business websites. The structure keeps each service
-            focused, easy to compare, and simple to submit.
+            Project Studio Kaduris a multi-page React + Vite experience for
+            three kinds of work: CSE final-year project builds, small creative
+            tasks, and professional business websites. The structure keeps each
+            service focused, easy to compare, and simple to submit.
           </p>
 
           <div className="about-stat-grid">
