@@ -6,8 +6,8 @@ import { resolve } from "node:path";
 const rootDir = fileURLToPath(new URL(".", import.meta.url));
 
 export default defineConfig({
-  // Repository project page is served from /ProjectStudio/ on GitHub Pages.
-  base: "/ProjectStudio/",
+  // Repository project page is served from /ProjectStudioKadur/ on GitHub Pages.
+  base: "/ProjectStudioKadur/",
   plugins: [react()],
   build: {
     rollupOptions: {
