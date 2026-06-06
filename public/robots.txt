@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gururajachar2008.github.io/ProjectStudioKadur/sitemap.xml
