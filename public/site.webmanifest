@@ -1,0 +1,22 @@
+{
+  "name": "Project Studio",
+  "short_name": "Project Studio",
+  "description": "Project Studio Kadur for CSE projects, small creative works, and professional websites.",
+  "start_url": "/ProjectStudioKadur/",
+  "scope": "/ProjectStudioKadur/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/ProjectStudioKadur/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/ProjectStudioKadur/favicon-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    }
+  ]
+}
